@@ -12,9 +12,9 @@ sails lift
 
 ## inspect
 
-localhost:2338
+* localhost:2338
 
-localhost:2338/prof/new
+* localhost:2338/prof/new
 
-localhost:2338/student/new
+* localhost:2338/student/new
 
