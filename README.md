@@ -4,11 +4,11 @@ a [Sails](http://sailsjs.org) application
 
 ## install 
 
-npm install
+* npm install
 
 ## run
 
-sails lift
+* sails lift
 
 ## inspect
 
