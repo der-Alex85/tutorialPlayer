@@ -1,0 +1,18 @@
+flash: student new...
+
+<h1> Profil erstellen </h1>
+
+<form action="/student/create" method="POST" id="signin-up-form" class="form-signin">
+	<h2 class="form-signin-heading">Student Daten</h2>
+
+	<% if(flash && flash.err) { %>
+		<ul class="alert alert-success">
+	<% Object.keys(flash.err).forEach(function(error) { %>
+		<li><%- JSON.stringify(flash.err[error]) %></li>
+	<% }) %>
+	</ul>
+	<% } %>
+
+	<div class="control-group">
+	<input type="text" class="form-control" placeholder="Name" name="name"/>
+	</div>

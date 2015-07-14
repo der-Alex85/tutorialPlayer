@@ -1,0 +1,22 @@
+$(document).ready(function() {
+  $(function () {
+    //$('#advtable').bootstrapTable(); // init via javascript
+
+    $(window).resize(function () {
+        $('#advtable').bootstrapTable('resetView');
+    });
+});
+});
+
+
+/*insert in ejs
+<table id='advtable' data-url="getProfData" data-height="299" data-card-view="true" data-toggle="table">
+    <thead>
+        <tr>
+            <th data-field="titel">Titel</th>
+            <th data-field="name">Name</th>
+            <th data-field="vorname">Vorname</th>
+        </tr>
+    </thead>
+</table>
+*/

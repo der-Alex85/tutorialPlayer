@@ -1,0 +1,46 @@
+<h1> Profil erstellen </h1>
+
+<form action="/prof/create" method="POST" id="signin-up-form" class="form-signin">
+	<h2 class="form-signin-heading">Professor Daten</h2>
+
+	<% if(req.session.flash && req.session.flash.err) { %>
+		<ul class="alert alert-success">
+	<% Object.keys(req.session.flash.err).forEach(function(error) { %>
+		<li><%- JSON.stringify(req.session.flash.err[error]) %></li>
+	<% }) %>
+	</ul>
+	<% } %>
+
+	<div class="control-group">
+	<input type="text" class="form-control" placeholder="Titel" name="titel"/>
+	</div>
+
+	<div class="control-group">
+	<input type="text" class="form-control" placeholder="Name" name="name"/>
+	</div>
+
+	<div class="control-group">
+	<input type="text" class="form-control" placeholder="Vorname" name="vorname"/>
+	</div>
+	
+	<div class="control-group">
+	<input type="email" class="form-control" placeholder="E-Mail" name="email"/>
+	</div>
+
+	<div class="control-group">
+	<input type="password" class="form-control" placeholder="Passwort" name="password"/>
+	</div>
+
+	<div class="control-group">
+	<input type="password" class="form-control" placeholder="Passwort wiederholen" name="confirmation"/>
+	<br/>
+	</div>
+
+	<label class="checkbox">
+		<input type="checkbox" name="isadmin"> Admin
+	</label>
+	
+	<input type="submit" class="btn btn-lg btn-primary btn-block" value="Create Account"/>
+	<!--input type="hidden" name="_csrf" value="<% _csrf %>"/--> 
+	<!-- cross side request forgery: config/csrf.js -->
+</form>

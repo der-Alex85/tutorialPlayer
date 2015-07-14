@@ -1,0 +1,76 @@
+<div class="container">
+
+<div id="profModal" class="modal fade">
+  
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Professor</h4>
+            </div>
+            <form action="/prof/create" method="POST">
+              <div class="modal-body form-signin">
+                <div class="btn-block modalFields"></div>
+                
+                  <label class="checkbox">
+                    <input type="checkbox" name="isadmin"> Admin
+                  </label>
+                
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+                <input type="submit" value="Speichern" class="btn btn-primary"/>
+              </div>
+            </form>
+        </div>
+    </div>
+  
+</div>
+
+<table class="table table-striped table-hover table-condensed table-responsive">
+  <caption>Professoren</caption>
+    <thead>
+        <tr>
+            <th>Status</th>
+            <th>Titel</th>
+            <th>Vorname</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <% _.each(profs, function(prof) { %>
+          <tr class="userClickable" ident="<%= prof.user.id %>">
+            <% if(prof.user.isonline) { %>
+                    <td><img src="/images/icon-online.png"></td>
+                <% } else { %>
+                    <td><img src="/images/icon-offline.png"></td>
+            <% } %>
+             <td><%= prof.titel %></td>
+             <td><%= prof.vorname %></td>
+             <td><%= prof.name %></td>
+             <td><%= prof.email %></td>
+
+            <td><form action="/prof/destroy/<%= prof.id %>" method="POST">
+              <input type="hidden" name="_method" value="delete"/>
+              <input type="submit" class="btn btn-sm btn-danger" value="delete"/>
+              <!--input type="hidden" name="_csrf" value="<% _csrf %>"-->
+            </form></td>
+
+            <td><form action="/prof/edit/<%= prof.id %>" method="POST">
+              <input type="hidden" name="_method" value="edit"/>
+              <input type="submit" class="btn btn-sm btn-warning" value="edit"/>
+              <!--input type="hidden" name="_csrf" value="<% _csrf %>"-->
+            </form></td>
+
+          </tr>
+
+        <% }); %>
+        
+    </tbody>
+</table>
+  <% if(session.User.isadmin) { %>
+    <a href="#" id="addProf" class="btn btn-sm btn-success">Professor hinzufügen</a>
+  <% } %>
+</div>

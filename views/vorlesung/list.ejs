@@ -1,0 +1,96 @@
+<div class="container">
+
+  <div id="studentsModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Studenten</h4>
+            </div>
+              <div class="modal-body">
+                <select multiple="multiple" id="studentSelect">
+
+                </select>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+              </div>
+        </div>
+    </div>
+  </div>
+
+  <div id="kursModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Kurs</h4>
+            </div>
+            <form action="" method="POST" >
+              <div class="modal-body form-signin">
+                <div class="btn-block" id="modalFields"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+                <input type="submit" value="Speichern" class="btn btn-primary"/>
+              </div>
+            </form>
+        </div>
+    </div>
+  </div>
+
+<table class="table table-striped table-hover table-condensed table-responsive">
+  <caption>Kurse</caption>
+    <thead>
+        <tr>
+            <th>Titel</th>
+            <th>Dozent</th>
+            <th>Teilnehmer</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <% _.each(kurse, function(kurs) { %>
+
+          <tr id="kursClickable" ident="<%= kurs.id %>">
+            <td><%= kurs.titel %></td>
+            <td><% if (kurs.kursleiter) { %>
+              <%= kurs.kursleiter.titel +' '+ kurs.kursleiter.name %>
+              <% } %>
+            </td>
+            <td>
+            <div class="btn-group">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Studenten <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <% _.each(kurs.teilnehmer, function(teilnehmer) { %>
+                  <li><a href="#"><%= teilnehmer.name+' '+teilnehmer.vorname+' ('+teilnehmer.matrikel+')'%></a></li>
+                <% }); %>
+                <li class="divider"></li>
+                <li><a href="#" class="addStudentToLecture" kursident="<%= kurs.id %>">Hinzufügen ...</a></li>
+              </ul>
+            </div>
+            </td>
+
+            <td><form action="/vorlesung/destroy/<%= kurs.id %>" method="POST">
+              <input type="hidden" name="_method" value="delete"/>
+              <input type="submit" class="btn btn-sm btn-danger" value="delete"/>
+              <input type="submit" class="btn btn-sm btn-warning" value="edit"/>
+              <!--input type="hidden" name="_csrf" value="<% _csrf %>"-->
+            </form></td>
+
+            <!--td>
+              <form action="/vorlesung/alexander" method="POST">
+              <input type="submit" class="btn btn-sm btn-danger" value="Add Alexander"/>
+              </form>
+            </td-->
+
+          </tr>
+
+        <% }); %>
+
+    </tbody>
+</table>
+    <button id="addVorlesung" class="btn btn-sm btn-success">Kurs hinzufügen</button>
+</div>

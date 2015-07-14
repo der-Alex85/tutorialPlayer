@@ -1,0 +1,10 @@
+
+//https://www.npmjs.com/package/impress-server
+//https://github.com/tompro/impress-server
+
+$.getJSON('steps/list.json', function(data) {
+    // Append ordered slides
+    appendSlides(data);
+    impress().init();
+    impressConsole().init();
+  });

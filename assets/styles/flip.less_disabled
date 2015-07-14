@@ -1,0 +1,171 @@
+
+#folien_notiz {
+  font-family: 'PT Serif', georgia, serif;
+  font-size: 1.4em;
+  #note-container {
+    margin: 1em;
+    .note {
+      margin-bottom: 1em;
+      .date {
+        color: #839496;
+        font-style: italic;
+        border-bottom: 1px solid #839496;
+      }
+    }
+  }
+
+  .meineNotiz {
+    margin: 1em;
+    form {
+
+    }
+  }
+
+
+}
+
+
+#folien_frage {
+  font-family: 'PT Serif', georgia, serif;
+  font-size: 1.4em;
+  #fragen-container {
+    margin: 1em;
+
+    .frage-antwort {
+      margin-bottom: 1em;
+      border-bottom: 1px solid #000;
+      .frage {
+        margin-bottom: 1em;
+      }
+      .antworten {
+        margin-left: 2em;
+        .antwort {
+          margin-bottom: 0.5em;
+        }
+      }
+      .meineAntwort {
+        margin-left: 2em;
+        form {
+          margin-bottom: 1em;
+        }
+      }
+    }
+    .date {
+      color: #839496;
+      font-style: italic;
+      border-bottom: 1px solid #839496;
+    }
+  }
+
+  .meineFrage {
+    margin: 1em;
+    form {
+
+    }
+  }
+}
+
+
+/*
+.flip {
+  -webkit-perspective: 800;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transition: 0.5s;
+
+  width: 100%;
+  height: 100%;
+}
+.flip .flipped {
+  -webkit-transform: rotatey(-180deg);
+}
+
+.flip .thumbnail {
+  //width: 100%;
+  //height: 100%;
+  //position: absolute;
+  -webkit-backface-visibility: hidden ;
+  z-index: 1;
+  position: absolute;
+
+}
+
+.flip .back {
+  -webkit-transform: rotatey(-180deg);
+    background: blue;
+    color: black;
+    cursor: pointer;
+    width: 100%;
+  height: 100%;
+}
+
+*/
+
+/*
+.mycard {
+  -webkit-transform-style: preserve-3d;
+  -webkit-transition: 0.5s;
+  -webkit-perspective: 800;
+}
+.mycard.flipped {
+  -webkit-transform: rotatey(-180deg);
+}
+
+.myfront {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 1;
+  cursor: pointer;
+  -webkit-backface-visibility: hidden ;
+}
+.myback {
+  width: 100%;
+  height: 100%;
+  -webkit-transform: rotatey(-180deg);
+  cursor: pointer;
+  -webkit-backface-visibility: hidden ;
+}
+
+
+.flip {
+  -webkit-perspective: 800;
+   //width: 400px;
+   //height: 200px;
+    //position: relative;
+    //margin: 50px auto;
+}
+.flip .card.flipped {
+  -webkit-transform: rotatey(-180deg);
+}
+.flip .card {
+  //width: 100%;
+  //height: 100%;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transition: 0.5s;
+}
+.flip .card .face {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  -webkit-backface-visibility: hidden ;
+  z-index: 2;
+    font-family: Georgia;
+    font-size: 3em;
+    text-align: center;
+    line-height: 200px;
+}
+.flip .card .front {
+  position: absolute;
+  z-index: 1;
+    background: black;
+    color: white;
+    cursor: pointer;
+}
+.flip .card .back {
+  -webkit-transform: rotatey(-180deg);
+    background: blue;
+    background: white;
+    color: black;
+    cursor: pointer;
+}
+*/

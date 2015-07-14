@@ -1,0 +1,36 @@
+<form action="/user/update/<%= user.id %>" method="POST" class="form-signin">
+	<h2> Editing User</h2>
+	<input value="<%= user.name %>" name="name" type="text" class="form-control"/>
+	<input value="<%= user.title %>" name="title" type="text" class="form-control"/>
+	<input value="<%= user.email %>" name="email" type="text" class="form-control"/>
+	<% if(session.authenticated && session.User.isadmin) { %>
+	<input type="hidden" name="adminTmp" value="unchecked">
+	  <% if(user.isadmin) { %>
+		<label class="checkbox">
+			<input type="checkbox" name="adminTmp" checked > Admin
+		</label>
+	  <% } else {%>
+		<label class="checkbox">
+			<input type="checkbox" name="adminTmp"> Admin
+		</label>
+	  <% } %>
+	<% } %>
+
+
+	<input type="hidden" name="profTmp" value="unchecked">
+	  <% if(user.prof) { %>
+		<label class="checkbox">
+			<input type="checkbox" name="profTmp" checked > Prof
+		</label>
+	  <% } else {%>
+		<label class="checkbox">
+			<input type="checkbox" name="profTmp"> Prof
+		</label>
+	  <% } %>
+	<% } %>
+
+
+
+	<input type="submit" value="Proceed" class="btn btn-lg btn-primary btn-block"/>
+	<input type="hidden" name="_csrf" value="<%= _csrf %>" />
+</form>

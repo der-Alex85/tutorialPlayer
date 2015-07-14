@@ -1,0 +1,107 @@
+
+.border {
+  border: 1px solid black;
+}
+
+.view-container {
+	width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  padding-bottom: 100px;  // footer
+}
+
+.view {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+
+  padding-bottom: 100px;  // footer
+
+  transition: -webkit-transform 0.3s cubic-bezier(0.465, 0.183, 0.153, 0.946);
+  transition: transform 0.3s cubic-bezier(0.465, 0.183, 0.153, 0.946);
+}
+
+.details-view {
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+}
+
+.view-change .list-view {
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+}
+
+.view-change .details-view {
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+}
+
+// ===================
+
+#side-nav {
+  width: 120px;
+  height: 100%;
+  position: fixed;
+  padding-bottom: 100px;  // footer
+}
+
+
+.grid-menu {
+  //left: 120px;
+  height: 100%;
+  //width: 80%;
+  //position: absolute;
+  position: fixed;
+  left: 120px;
+  right: 0;
+  margin: 0 20px;
+  padding-bottom: 100px;  // footer
+  //padding-bottom: 100px;
+  .row{
+    height: 100%;
+    padding: 10px 0 30px; // footer
+    .thumbnail {
+      height: 33%;
+      text-align: center;
+      .glyphicon {
+        font-size: 2em;
+      }
+    }
+    @media (min-width: 768px) {
+      .thumbnail {
+        height: 50%;
+      }
+    }
+  }
+}
+
+#fullscreen .myHidden * {
+  display: none;
+}
+
+#fullscreen { 
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background-color: lightgrey;
+  padding-bottom: 100px;  // footer 
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+
+#close-fullscreen {
+  position: absolute;
+  right: 0;
+  font-size: 2em;
+  display: none;
+}
+
+/*
+#impress {
+  position: relative !important;
+  height: 100%;
+}*/

@@ -1,0 +1,104 @@
+
+var globObj = {
+	windowName: ""
+};
+
+$('.thumbnail').click(function(){
+
+	var windowName = $(this).attr('win');
+
+	$('#fullscreen').animate({width: '100%', height: '100%', top: '0', left: '0'});
+	$('#close-fullscreen').css("display","block");
+
+	$('#fullscreen #fullscreen-header').toggleClass("myHidden");
+	$('#fullscreen #fullscreen-content').toggleClass("myHidden");
+
+
+	if(windowName != globObj.windowName) {
+		$("#fullscreen #fullscreen-content").empty();
+
+		var obj = {};
+		var params = {'kurs': ''};
+
+		if (windowName == "a") {
+
+			$('body').append($('<script id="step-template" type="x-handlebars-template"><div id="{{id}}" class="{{class}}"{{#step data}}{{uri}}{{/step}}>{{{file}}}</div></script>'));
+
+
+      $( '#fullscreen-content' ).append(
+        JST['assets/templates/folienTemplate.ejs']( data )
+      );
+
+
+      /* Request for impress slides */
+      /*
+      $.post("/foliensatz/getStepList", function(steps){
+        appendSlides(steps);
+        impress().init();
+        impressConsole().init();
+      }, "json");
+      */
+
+      /* Request for reveal slides */
+      var currentKurs = window.localStorage.getItem('activeKurs');
+      var pos = JSON.parse(window.localStorage.getItem('pos-'+currentKurs));
+
+      var data = {kurs: currentKurs, file: pos.file};
+      $.post("/foliensatz/getRevealSlides", data, function(steps){
+
+        $( 'div.reveal>div.slides' ).append(steps);
+
+        Reveal.initialize({
+          center: true,
+          // rtl: true,
+          width: 1000,
+          height: 500,
+          transition: 'linear',
+          // transitionSpeed: 'slow',
+          // backgroundTransition: 'slide'
+
+        });
+
+      }, "html");
+
+
+
+		} else if(windowName == "b"){
+			$( '#fullscreen-content' ).append(
+      	JST['assets/templates/videoTemplate.ejs']( obj )
+    	);
+		} else if(windowName == "c"){
+			$( '#fullscreen-content' ).append(
+      	JST['assets/templates/quizTemplate.ejs']( obj )
+    	);
+		} else if(windowName == "d"){
+			$( '#fullscreen-content' ).append(
+      	JST['assets/templates/fragenTemplate.ejs']( obj )
+    	);
+		} else if(windowName == "e"){
+			$( '#fullscreen-content' ).append(
+      	JST['assets/templates/materialTemplate.ejs']( obj )
+    	);
+		} else if(windowName == "f"){
+			$( '#fullscreen-content' ).append(
+      	JST['assets/templates/infoTemplate.ejs']( obj )
+    	);
+		}
+
+		globObj.windowName = windowName;
+
+	}
+});
+
+$("#close-fullscreen").click(function(){
+	console.log("click");
+	$(this).css("display","none");
+	$('#fullscreen').animate({width: '0', height: '0', top: '50%', left: '50%'});
+
+	$('#fullscreen #fullscreen-header').toggleClass("myHidden");
+	$('#fullscreen #fullscreen-content').toggleClass("myHidden");
+});
+
+
+
+

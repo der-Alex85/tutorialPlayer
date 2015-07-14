@@ -1,0 +1,108 @@
+<div class="container">
+
+    <h3>Users</h3>
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th></th>
+            <th></th>
+        </tr>
+
+
+        <% _.each(users, function(user) { %> 
+            <tr data-id="<%= user.id %>" data-model="user">
+                <% if(user.isonline) { %>
+                    <td><img src="/images/icon-online.png"></td>
+                <% } else { %>
+                    <td><img src="/images/icon-offline.png"></td>
+                <% } %>
+                <td><%= user.id %></td>
+                <td><%= user.email %></td>
+                <% if(user.isadmin) { %>
+                    <td><img src="/images/admin.png"></td>
+                <% } else { %>
+                    <td><img src="/images/pawn.png"></td>
+                <% } %>
+                <td><a href="/user/show/<%= user.id %>" class="btn btn-sm btn-primary">Show</a></td>
+                <td><a href="/user/edit/<%= user.id %>" class="btn btn-sm btn-warning">Edit</a></td>
+
+                <td><form action="/user/destroy/<%= user.id %>" method="POST">
+                    <input type="hidden" name="_method" value="delete"/>
+                    <input type="submit" class="btn btn-sm btn-danger" value="delete"/>
+                    <!--input type="hidden" name="_csrf" value="<% _csrf %>"-->
+                </form></td>
+
+            </tr>
+        <% }) %>
+    </table>
+
+
+    <h3>Professoren</h3>
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>ID</th>
+            <th>Titel</th>
+            <th>Vorname</th>
+            <th>Name</th>
+            <th>Email</th>
+        </tr>
+        <% _.each(users, function(user) { %>
+        <% if(user.prof) { %>
+          <tr data-id="<%= user.id %>" data-model="user">
+            <% if(user.isonline) { %>
+                    <td><img src="/images/icon-online.png"></td>
+                <% } else { %>
+                    <td><img src="/images/icon-offline.png"></td>
+            <% } %>
+             <td><%= user.prof.id %></td>
+             <td><%= user.prof.titel %></td>
+             <td><%= user.prof.vorname %></td>
+             <td><%= user.prof.name %></td>
+             <td><%= user.prof.email %></td>
+          </tr>
+        <% } %>
+
+
+        <% }) %>
+    </table>
+    <a href="/prof/new" class="btn btn-sm btn-success">Add new professor</a>
+
+    <h3>Studenten</h3>
+    <table class="table">
+        <tr >
+            <th></th>
+            <th>ID</th>
+            <th>Vorname</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Matrikelnummer</th>
+        </tr>
+        <% _.each(users, function(user) { %>
+        <% if(user.student) { %>
+          <tr data-id="<%= user.id %>" data-model="user">
+            <td>
+            <% if(user.isonline) { %>
+                <img src="/images/icon-online.png">
+            <% } else { %>
+                <img src="/images/icon-offline.png">
+            <% } %>
+            </td>
+             <td><%= user.student.id %></td>
+             <td><%= user.student.vorname %></td>
+             <td><%= user.student.name %></td>
+             <td><%= user.student.email %></td>
+             <td><%= user.student.matrikel %></td>
+             
+          </tr>
+        <% } %>
+
+
+        <% }) %>
+    </table>
+    <a href="/student/new" class="btn btn-sm btn-success">Add new student</a>
+
+</div>

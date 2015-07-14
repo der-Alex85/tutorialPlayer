@@ -1,0 +1,35 @@
+<div class="container">
+
+  <form action="/student/update/<%= student.id %>" method="POST" class="form-signin">
+		<h2> Editing Student</h2>
+		<input value="<%= student.name %>" name="name" type="text" class="form-control"/>
+		<input value="<%= student.vorname %>" name="vorname" type="text" class="form-control"/>
+		<input value="<%= student.email %>" name="email" type="text" min="111111" max="9999999" class="form-control"/>
+		<input value="<%= student.matrikel %>" name="matrikel" type="number" class="form-control"/>
+
+
+		<input type="submit" value="Proceed" class="btn btn-lg btn-primary btn-block"/>
+		<input type="hidden" name="_csrf" value="<%= _csrf %>" />
+  </form>
+
+	<h3>Kurse</h3>
+    <table class="table">
+        <tr >
+  	      <th></th>
+          <th>ID</th>
+          <th>Kursname</th>
+          <th>Dozent</th>
+        </tr>
+        <% _.each(kurse, function(kurs) { %>
+        
+          <tr data-id="<%= kurs.id %>" data-model="kurs">
+             <td><%= kurs.id %></td>
+             <td><%= kurs.name %></td>
+             <td><%= kurs.prof %></td>
+          </tr>
+       	
+        <% }) %>
+    </table>
+    <a href="#" class="btn btn-sm btn-success"></a>
+
+</div>

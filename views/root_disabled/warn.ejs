@@ -1,0 +1,14 @@
+<div class="container">
+
+	<% if(flash && flash.err) { %>
+		<ul class="alert alert-success">
+	<% Object.keys(flash.err).forEach(function(error) { %>
+		<li><%- JSON.stringify(flash.err[error].message) %></li>
+	<% }) %>
+	</ul>
+	<% } %>
+
+
+	<a href="/" class="btn btn-lg btn-success">Home</a>
+
+</div>

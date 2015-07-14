@@ -1,0 +1,12 @@
+<div class="container">
+	<h1><%= prof.titel %> <%= prof.name %>, <%= prof.vorname %></h1>
+	<% if(prof.user.isadmin) { %>
+        <img src="/images/admin.png"> admin
+    <% } else { %>
+        <img src="/images/pawn.png"> pawn
+	<% } %>
+	<hr/>
+	<h3>contact: <%= prof.email %> </h3>
+	<a class="btn btn-medium btn-primary" href="/prof/edit/<%- prof.id %>">Edit</a>
+
+</div>

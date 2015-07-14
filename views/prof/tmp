@@ -1,0 +1,17 @@
+<input type="hidden" name="adminTmp" value="unchecked">
+	  <% if(prof.isadmin) { %>
+		<label class="checkbox">
+			<input type="checkbox" name="adminTmp" checked > Admin
+		</label>
+	  <% } else {%>
+		<label class="checkbox">
+			<input type="checkbox" name="adminTmp"> Admin
+		</label>
+	  <% } %>
+	<% } %>
+
+
+
+	<% _.each(prof, function(field) { %> 
+	<%= field %>
+	<% } %>

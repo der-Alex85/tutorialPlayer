@@ -1,0 +1,245 @@
+/**
+ * importer.less
+ *
+ * By default, new Sails projects are configured to compile this file
+ * from LESS to CSS.  Unlike CSS files, LESS files are not compiled and
+ * included automatically unless they are imported below.
+ *
+ * The LESS files imported below are compiled and included in the order
+ * they are listed.  Mixins, variables, etc. should be imported first
+ * so that they can be accessed by subsequent LESS stylesheets.
+ *
+ * (Just like the rest of the asset pipeline bundled in Sails, you can
+ * always omit, customize, or replace this behavior with SASS, SCSS,
+ * or any other Grunt tasks you like.)
+ */
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+  overflow: hidden;
+}
+.main-content {
+  position: relative;
+  height: 100%;
+  padding-top: 50px;
+}
+footer {
+  position: absolute;
+  width: 100%;
+  height: 100px;
+  bottom: 0;
+  background: #00698b;
+}
+/*
+footer {
+	position: relative;
+	//bottom: 0;
+	//width: 100%;
+	padding-bottom: 1em;
+	background: #00698b;
+}
+*/
+/*
+.jumbotron {
+	text-align: center;
+}
+
+.jumbotron h2 {
+	font-size: 1.5em;
+	letter-spacing: -1px;
+	margin-bottom: 30px;
+	text-align: center;
+	font-weight: normal;
+	color: gray;
+}
+*/
+.container .gray {
+  color: gray;
+}
+/*
+.container {
+	.footer {
+		width: 25%;
+	}
+}
+*/
+.form-signin {
+  width: 380px;
+  padding: 19px 29px 29px;
+  margin: 0 auto 20px;
+  margin-top: 20px;
+  background-color: #ececec;
+  border: 1px solid #9ec03b;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+}
+.form-signin h2 {
+  text-align: center;
+  margin-top: 0px;
+}
+.form-signin input[type="text"],
+.form-signin input[type="password"] {
+  font-size: 16px;
+  height: auto;
+  margin-bottom: 15px;
+  padding: 7px 9px;
+}
+/* Dropdown in Modal */
+#modalFields .btn-input {
+  display: block;
+}
+#modalFields .btn-input .btn.form-control {
+  text-align: left;
+}
+#modalFields .btn-input ul.dropdown-menu {
+  width: 100%;
+}
+#modalFields .btn-input ul.dropdown-menu li {
+  padding-left: 10px;
+}
+#modalFields .btn-input .btn.form-control .caret {
+  margin-top: -1px;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+}
+.border {
+  border: 1px solid black;
+}
+.view-container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  padding-bottom: 100px;
+}
+.view {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  padding-bottom: 100px;
+  transition: -webkit-transform 0.3s cubic-bezier(0.465, 0.183, 0.153, 0.946);
+  transition: transform 0.3s cubic-bezier(0.465, 0.183, 0.153, 0.946);
+}
+.details-view {
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+}
+.view-change .list-view {
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+}
+.view-change .details-view {
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+}
+#side-nav {
+  width: 120px;
+  height: 100%;
+  position: fixed;
+  padding-bottom: 100px;
+}
+.grid-menu {
+  height: 100%;
+  position: fixed;
+  left: 120px;
+  right: 0;
+  margin: 0 20px;
+  padding-bottom: 100px;
+}
+.grid-menu .row {
+  height: 100%;
+  padding: 10px 0 30px;
+}
+.grid-menu .row .thumbnail {
+  height: 33%;
+  text-align: center;
+}
+.grid-menu .row .thumbnail .glyphicon {
+  font-size: 2em;
+}
+@media (min-width: 768px) {
+  .grid-menu .row .thumbnail {
+    height: 50%;
+  }
+}
+#fullscreen .myHidden * {
+  display: none;
+}
+#fullscreen {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background-color: lightgrey;
+  padding-bottom: 100px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+#close-fullscreen {
+  position: absolute;
+  right: 0;
+  font-size: 2em;
+  display: none;
+}
+/*
+#impress {
+  position: relative !important;
+  height: 100%;
+}*/
+#folien_notiz {
+  font-family: 'PT Serif', georgia, serif;
+  font-size: 1.4em;
+}
+#folien_notiz #note-container {
+  margin: 1em;
+}
+#folien_notiz #note-container .note {
+  margin-bottom: 1em;
+}
+#folien_notiz #note-container .note .date {
+  color: #839496;
+  font-style: italic;
+  border-bottom: 1px solid #839496;
+}
+#folien_notiz .meineNotiz {
+  margin: 1em;
+}
+#folien_frage {
+  font-family: 'PT Serif', georgia, serif;
+  font-size: 1.4em;
+}
+#folien_frage #fragen-container {
+  margin: 1em;
+}
+#folien_frage #fragen-container .frage-antwort {
+  margin-bottom: 1em;
+  border-bottom: 1px solid #000;
+}
+#folien_frage #fragen-container .frage-antwort .frage {
+  margin-bottom: 1em;
+}
+#folien_frage #fragen-container .frage-antwort .antworten {
+  margin-left: 2em;
+}
+#folien_frage #fragen-container .frage-antwort .antworten .antwort {
+  margin-bottom: 0.5em;
+}
+#folien_frage #fragen-container .frage-antwort .meineAntwort {
+  margin-left: 2em;
+}
+#folien_frage #fragen-container .frage-antwort .meineAntwort form {
+  margin-bottom: 1em;
+}
+#folien_frage #fragen-container .date {
+  color: #839496;
+  font-style: italic;
+  border-bottom: 1px solid #839496;
+}
+#folien_frage .meineFrage {
+  margin: 1em;
+}

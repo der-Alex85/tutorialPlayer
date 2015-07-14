@@ -1,0 +1,105 @@
+<div class="container">
+
+
+<!--div id="loginModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Einloggen</h4>
+            </div>
+            <div class="modal-body">
+              <form action="" method="POST" class="form-signin">
+                <div class="btn-block">
+                	<input type="text" placeholder="Email" name="email" class="form-control"/>
+                	<input type="password" placeholder="Password" name="password" class="form-control"/>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+                <input type="submit" value="Einloggen" class="btn btn-primary"/>
+            </div>
+        </div>
+    </div>
+</div-->
+
+<!--div id="regModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Registrieren</h4>
+            </div>
+            <div class="modal-body">
+
+
+            	
+              <form action="/student/create" method="POST" class="form-signin" id="signin-up-form">
+                <div class="btn-block">
+                 	
+					  <input type="text" class="form-control" placeholder="Name" name="name"/>
+					
+				 	
+					<input type="text" class="form-control" placeholder="Vorname" name="vorname"/>
+					
+					
+					<input type="email" class="form-control" data-rule-required="true" data-rule-email="true" data-msg-required="Please enter your email address" data-msg-email="Please enter a valid email address" aria-required="true"placeholder="E-Mail" name="email"/>
+					
+					
+					<input type="number" min="111111" max="9999999" class="form-control" placeholder="Matrikelnummer" name="matrikel"/>
+					
+					
+					<input type="password" class="form-control" placeholder="Passwort" name="password"/>
+					
+
+					<input type="password" class="form-control" placeholder="Passwort wiederholen" name="confirmation"/>
+
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+                <input type="submit" value="Registrieren" class="btn btn-primary"/>
+            </div>
+        </div>
+    </div>
+</div-->
+
+
+
+
+
+<!--div class="jumbotron">
+	<h1>Tutorial Player</h1>
+
+	<h2>Login Seite</h2>
+	<form action="/session/create" method="POST" class="form-signin">
+        <div class="btn-block">
+        	<input type="text" placeholder="Email" name="email" class="form-control"/>
+        	<input type="password" placeholder="Password" name="password" class="form-control"/>
+        	<input type="submit" class="btn btn-lg btn-success btn-block" value="Einloggen"/>
+        </div>
+    </form>
+</div-->
+
+
+<form action="/session/create" method="POST" class="form-signin">	
+	<h2>Benutzer Login</h2>
+
+
+	<input type="text" class="form-control" placeholder="Email address" name="email"/>
+	<input type="password" class="form-control" placeholder="Pasword" name="password"/>
+	<input type="submit" class="btn btn-lg btn-success btn-block" value="Anmelden"/>
+	<!--input type="hidden" name="_csrf" value="<%= _csrf %>"/-->
+
+</form>
+
+
+
+	<!--button class="btn btn-lg btn-success" data-toggle="modal" data-target="#loginModal">Einloggen</button>
+	<button class="btn btn-lg btn-success" data-toggle="modal" data-target="#regModal">Registrieren</button-->
+	<!--a href="/user/new" class="btn btn-lg btn-success">Registrieren</a-->
+
+</div>
+

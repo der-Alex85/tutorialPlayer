@@ -1,0 +1,83 @@
+Done:
+
+  - Überblick verschaffen
+
+  - Backend-Konzept
+      - Datenbank: mongoDB
+      - Datenbankmodell erstellen
+      - Usermodell
+
+  - Framework-Einarbeitung
+    - sails.js (MVC Framework für node.js)
+
+  - Foliendarstellung
+    - reveal.js
+
+  - Authentifizierung
+
+  - (simple) Design
+    - inkl. responsive Design u.a. mit Bootstrap
+
+  - diverse Bugfixes
+
+ToDo:
+
+  - vollständige Implementierung der sechs Views (.ejs-Templates)
+    - Slides, Notizen mit PDF-Export
+    - Video/Audio
+    - Quiz
+    - Fragen, Antworten, Chat
+    - Materialien
+    - Kursinfo
+
+  - offline Verfügbarkeit
+    - test npm-Modul: js-git
+    - local Storage
+    - evtl. alternative Konzepte erarbeiten
+
+  - Konzept für: Umschalten in offline-Betrieb
+    - Identifizierung der fehlenden Internetverbindung
+    - Authentifizierung des Users
+    - zeige relevante Daten
+
+  - Einbindung von Socket.IO für clientseitige Kommunikation
+
+  - Verwaltungskonzept für Materialien (Dokumente, Video, Audio, Slides)
+    - Upload und Storage
+
+  - Darstellung der Statistiken im Quiz
+    - test javascript-Module
+
+  - Darstellung der Fortschritts für jeden Kursteilnehmer
+
+  - Testing (auf mobilen Endgeräten)
+
+  - Bugfixing
+
+
+
+Ursprüngliche Projektbeschreibung:
+
+Im Rahmen der Projektarbeit soll eine Web-Plattform erstellt werden, die
+mittels HTML5-Elemente und Javaskript-Bibliotheken die Darstellung von
+Lerninhalten in Form von Folien, Bildern, Video/Audio, Texten, etc.
+ermöglicht. Dabei soll die Anzeige sowohl auf allen gängigen mobilen als auch
+stationären Endgeräten, für den Nutzer bequem lesbar sein (mobile-first-
+Prinzip). Ebenso werden dem Nutzer Aufgaben gestellt, die durch Auswahl von
+Radio-Buttons und Checkboxen gelöst werden sollen.
+Für die Foliendarstellung sollen Technologien wie die impress.js Bibliothek und
+AsciiDoc erprobt werden.
+Mit Hinblick auf die mobile Nutzung soll die Anwendung wenig Datenverkehr
+aufweisen und durch Verwendung von Caching zu 100% offline verfügbar sein.
+Die Problematik der Datensynchronisation soll hierbei möglichst elegant und
+automatisiert mit Zuhilfenahme von Versionskontrolle gelöst werden (git-js).
+Zudem sollen die Ladezeiten durch Verwendung von AJAX, Web-Sockets und
+WebRTC auf ein Minimum Reduziert werden.
+Der Nutzer soll die Möglichkeit haben Fragen zum Lerninhalt zu stellen, diesen
+zu Kommentieren und Notizen zu den Folien zu machen und diese als PDF zu
+exportieren. Eventuell kann ein Live-Chat für beteiligte Clients implementiert
+werden.
+Eine Datenbankanbindung soll die persistente Speicherung der Lerninhalte auf
+dem Server übernehmen.
+Die Komprimierung der Inhalte soll zur Reduktion des Datenverkehrs
+beitragen.

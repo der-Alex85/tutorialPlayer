@@ -1,0 +1,22 @@
+<form action="/prof/update/<%= prof.id %>" method="POST" class="form-signin">
+
+	<h2> Professor bearbeiten</h2>
+	<div class="btn-block">
+	<% _.each( prof, function(val, key){ %>		
+		<% if( key == 'id' || key == 'user' || key == 'createdAt' || key == 'updatedAt') { %>
+			
+			
+		<% } else { %>
+		<label><%= String.fromCharCode(key.charCodeAt(0)).toUpperCase()+key.substring(1) %></label>
+		<input value="<%= val %>" name="<%= key %>" type="text" class="form-control"/>
+		<% } %>
+	<% }); %>
+	<br/>
+	<% if(session.authenticated && session.User.isadmin) { %>
+		<input type="checkbox" name="isprof" <% if(prof.user.isprof) { %>checked<%}%> > Prof <br/>
+		<input type="checkbox" name="isadmin" <% if(prof.user.isadmin) { %>checked<%}%> > Admin
+	<% } %>
+	</div>
+	<input type="submit" value="Speichern" class="btn btn-lg btn-primary btn-block"/>
+	<input type="hidden" name="_csrf" value="<%= _csrf %>" />
+</form>
