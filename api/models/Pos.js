@@ -6,7 +6,8 @@ module.exports = {
 	attributes: {
 		user:  { type: 'string', required: true },
 		kurs:  {type: 'string', required: true },
-		satz:  {type: 'string', required: true },
-		folie: {type: 'integer', required: true }
+		satz:  {type: 'string' },
+		folie: {type: 'string' },
+		file:  {type: 'string' }
 	}
 }

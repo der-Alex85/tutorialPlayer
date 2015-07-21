@@ -98,7 +98,6 @@ $(document).ready(function() {
   });
 
   $("#close-fullscreen").click(function(){
-    console.log("click");
     $(this).css("display","none");
     $('#fullscreen').animate({width: '0', height: '0', top: '50%', left: '50%'});
 

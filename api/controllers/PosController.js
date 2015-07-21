@@ -34,18 +34,24 @@ module.exports = {
 	},
 
 	updatePos: function(req,res,next){
-		var u = req.param('user');
-		var k = req.param('kurs');
-		var s = req.param('satz');
-		var f = req.param('folie');
-		Pos.update({user: u, kurs: k}, {satz: s, folie: f}, function posUpdated(err){
-			if(err) {
+		var user = req.param('user');
+		var kurs = req.param('kurs');
+		var satz = req.param('satz');
+		var folie = req.param('folie');
+		var file = req.param('file');
+		Pos.update({user: user, kurs: kurs}, {satz: satz, folie: folie, file: file}, function posUpdated(err, pos){
+			if(err || pos.length == 0) {
 				var posObj = {
-					user: u, kurs: k,
-					satz: s, folie: f
+					user: user, kurs: kurs, satz: satz, 
+					folie: folie, file: file
 				}
-				Pos.create(posObj, function posCreated(err, pos){});
+				Pos.create(posObj, function posCreated(err, pos){
+					if(err) {
+						console.log(JSON.stringify(err));
+					} 
+				});
 			}
+			
         //if(err) return res.redirect('/user/edit/'+req.param('id'));
         //res.redirect('/user/show/'+req.param('id'));
     });
