@@ -1,7 +1,7 @@
 module.exports = {
 
 
-  // delete?
+  // unused: delete
   getAppcache: function(req, res){
     var fs = require(appcache);
 

@@ -1,106 +1,12 @@
 $(document).ready(function() {
 
 
-  // Check if a new cache is available on page load.
-  window.addEventListener('load', function(e) {
-
-    window.applicationCache.addEventListener('updateready', function(e) {
-      if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
-        // Browser downloaded a new app cache.
-        // Swap it in and reload the page to get the new hotness.
-        window.applicationCache.swapCache();
-        if (confirm('A new version of this site is available. Load it?')) {
-          window.location.reload();
-        }
-      } else {
-        // Manifest didn't changed. Nothing new to server.
-      }
-    }, false);
-
-  }, false);
-
-
-
-  var listItems = $('.kursliste .kursItem');
-
-	$.each(listItems, function(index, value){
-		$(value).click(function(){
-
-			var ident = $(this).attr('ident');
-			var params = {'kurs': ident};
-			window.localStorage.setItem("activeKurs", ident);
-			//$.post('/session/sessionstore', params, function(r){  });
-
-      var localPos = JSON.parse(window.localStorage.getItem('pos-'+ident));
-
-			$.post('/vorlesung/getKursData', {id: ident}, function(data) {
-				var saetze = data.folien;
-				var listItem;
-
-
-
-				$('#side-nav ul').empty();
-				for (var foliensatz in saetze) {
-
-					listItem = $('<li role="presentation" ident='+saetze[foliensatz].id+' file='+saetze[foliensatz].file+'><a href="#"> '+ saetze[foliensatz].title +'</a></li>');
-          if (localPos != null && saetze[foliensatz].id == localPos.satz) {
-            listItem.attr('class', 'active');
-            localPos.file = saetze[foliensatz].file;
-          }
-					$('#side-nav ul').append(listItem);
-				}
-        window.localStorage.setItem('pos-'+ident, JSON.stringify(localPos));
-			});
-
-
-      if(localPos != null) {
-        // fetch Notizen
-        $.post('/notizen/getNotesByVorlSatz', {kurs: ident, satz: localPos.satz}, function (notizen) {
-          for (var notiz in notizen) {
-            // todo here
-          }
-        });
-      }
-
-			// change View
-			$('.view-container').toggleClass("view-change");
-		});
-	});
-
-
-
-  // toggle li class=active
-  $('#side-nav').on("click", "li", function() {
-    $(this).closest('ul').find('li[class=active]').toggleClass('active');
-    $(this).attr('class', 'active');
-
-    var newPos = {satz: $(this).attr('ident'), file: $(this).attr('file')};
-    updatePosition(newPos);
-
-  });
-
-
-	$('.back-button').click(function(){
-		$('.view-container').toggleClass("view-change");
-	});
-
-
-	// positioning
-	var userId = $('.view-container').attr('user');
-	if( userId != undefined) {
-		$.post('/pos/getPosByUser',{id: userId}, function(data) {
-			for(pos in data) {
-				window.localStorage.setItem('pos-'+data[pos].kurs, JSON.stringify({satz: data[pos].satz, folie: data[pos].folie}));
-			}
-		});
-	}
-
-
-// =====================================
-
   var globObj = {
     windowName: ""
   };
+
+  var kursData = {};
+
 
   $('.thumbnail').click(function(){
 
@@ -123,9 +29,8 @@ $(document).ready(function() {
 
         $('body').append($('<script id="step-template" type="x-handlebars-template"><div id="{{id}}" class="{{class}}"{{#step data}}{{uri}}{{/step}}>{{{file}}}</div></script>'));
 
-
         $( '#fullscreen-content' ).append(
-          JST['assets/templates/folienTemplate.ejs']( data )
+          JST['assets/templates/folienTemplate.ejs']( kursData )
         );
 
 
@@ -142,11 +47,14 @@ $(document).ready(function() {
         var currentKurs = window.localStorage.getItem('activeKurs');
         var pos = JSON.parse(window.localStorage.getItem('pos-'+currentKurs));
 
-        var data = {kurs: currentKurs, file: pos.file};
+        var file = pos.file;
+        if(file == "") {
+          file = kursData.folien[0].file;
+        }
+        var data = {kurs: currentKurs, file: file};
+
         $.post("/foliensatz/getRevealSlides", data, function(steps){
-
           $( 'div.reveal>div.slides' ).append(steps);
-
           Reveal.initialize({
             center: true,
             // rtl: true,
@@ -200,6 +108,144 @@ $(document).ready(function() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // Check if a new cache is available on page load.
+  window.addEventListener('load', function(e) {
+
+    window.applicationCache.addEventListener('updateready', function(e) {
+      if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
+        // Browser downloaded a new app cache.
+        // Swap it in and reload the page to get the new hotness.
+        window.applicationCache.swapCache();
+        if (confirm('A new version of this site is available. Load it?')) {
+          window.location.reload();
+        }
+      } else {
+        // Manifest didn't changed. Nothing new to server.
+      }
+    }, false);
+
+  }, false);
+
+
+
+  // fetch user positions from db:
+  var userId = $('.view-container').attr('user');
+  if(userId != undefined) {
+    $.post('/pos/getPosByUser', {id: userId}, function (data) {
+      for (pos in data) {
+        // init in localStorage
+        window.localStorage.setItem('pos-' + data[pos].kurs, JSON.stringify({
+          satz: data[pos].satz,
+          folie: data[pos].folie
+        }));
+      }
+    });
+  }
+
+  var listItems = $('.kursliste .kursItem');
+	$.each(listItems, function(index, value) {
+    var ident = $(this).attr('ident');
+
+		$(value).click(function(){
+
+			var params = {'kurs': ident};
+			window.localStorage.setItem("activeKurs", ident);
+
+      var kursPos = window.localStorage.getItem('pos-'+ident);
+      if(kursPos == undefined) {
+        //var pos = {};
+        //pos.satz = "";
+        //pos.folie = "";
+        //pos.file = "";
+        updatePosition({});
+      }
+
+			//$.post('/session/sessionstore', params, function(r){  });
+
+      var localPos = JSON.parse(window.localStorage.getItem('pos-'+ident));
+
+			$.post('/vorlesung/getKursData', {id: ident}, function(data) {
+				var saetze = data.folien;
+				var listItem;
+        kursData = data;
+
+
+				$('#side-nav ul').empty();
+				for (var foliensatz in saetze) {
+
+					listItem = $('<li role="presentation" ident='+saetze[foliensatz].id+' file='+saetze[foliensatz].file+'><a href="#"> '+ saetze[foliensatz].title +'</a></li>');
+          if (localPos != null && saetze[foliensatz].id == localPos.satz) {
+            listItem.attr('class', 'active');
+            localPos.file = saetze[foliensatz].file;
+          }
+					$('#side-nav ul').append(listItem);
+				}
+        window.localStorage.setItem('pos-'+ident, JSON.stringify(localPos));
+			});
+
+
+      if(localPos != null) {
+        // fetch Notizen
+        $.post('/notiz/getNotesByVorlSatz', {kurs: ident, satz: localPos.satz}, function (notizen) {
+          for (var notiz in notizen) {
+            // todo here
+          }
+        });
+      }
+
+			// change View
+			$('.view-container').toggleClass("view-change");
+		});
+	});
+
+
+
+  // toggle li class=active
+  $('#side-nav').on("click", "li", function() {
+    $(this).closest('ul').find('li[class=active]').toggleClass('active');
+    $(this).attr('class', 'active');
+
+    var newPos = {satz: $(this).attr('ident'), file: $(this).attr('file')};
+    updatePosition(newPos);
+
+  });
+
+
+	$('.back-button').click(function(){
+		$('.view-container').toggleClass("view-change");
+	});
+
+
+	// positioning
+	//var userId = $('.view-container').attr('user');
+	//if( userId != undefined) {
+	//	$.post('/pos/getPosByUser',{id: userId}, function(data) {
+	//		for(pos in data) {
+	//			window.localStorage.setItem('pos-'+data[pos].kurs, JSON.stringify({satz: data[pos].satz, folie: data[pos].folie}));
+	//		}
+	//	});
+	//}
+
+
+// =====================================
+
+// moved to top
 
   // ====================================
 

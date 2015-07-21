@@ -1,4 +1,5 @@
 module.exports = {
+
 	getPosByUserAndLecture: function(req,res,next) {
 		var u = req.param('user');
 		var k = req.param('kurs');

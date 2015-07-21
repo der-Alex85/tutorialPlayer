@@ -1,9 +1,9 @@
 $(document).ready(function() {
 
-  document.addEventListener( 'keydown', updateSlidePosDelayed, false );
+
+  document.addEventListener( 'slidechanged', updateSlidePosDelayed, false );
 
 });
-
 
   function updateSlidePosDelayed() {
     setTimeout(updateSlidePos, 500);
@@ -22,6 +22,7 @@ $(document).ready(function() {
     var currentKurs = window.localStorage.getItem('activeKurs');
     var oldPos = JSON.parse(window.localStorage.getItem('pos-'+currentKurs));
     if (oldPos == undefined) {
+      oldPos = {};
       oldPos.satz='';
       oldPos.folie='';
       oldPos.file='';

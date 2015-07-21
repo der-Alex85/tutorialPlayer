@@ -1312,6 +1312,7 @@
 		var event = document.createEvent( 'HTMLEvents', 1, 2 );
 		event.initEvent( type, true, true );
 		extend( event, args );
+
 		dom.wrapper.dispatchEvent( event );
 
 		// If we're in an iframe, post each reveal.js event to the
