@@ -26,7 +26,8 @@ function storePosition() {
 			pos.user = user;
 			pos.kurs = kurs;
 			pos.satz = localPos.satz;
-			pos.folie = localPos.folie;
+			pos.indexh = localPos.indexh;
+			pos.indexv = localPos.indexv;
 			pos.file = localPos.file;
 
 			$.post('/pos/updatePos', pos, function(p){

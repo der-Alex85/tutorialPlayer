@@ -151,7 +151,8 @@ $(document).ready(function() {
         // init in localStorage
         window.localStorage.setItem('pos-' + data[pos].kurs, JSON.stringify({
           satz: data[pos].satz,
-          folie: data[pos].folie
+          indexh: data[pos].indexh,
+          indexv: data[pos].indexv
         }));
       }
     });
@@ -168,10 +169,6 @@ $(document).ready(function() {
 
       var kursPos = window.localStorage.getItem('pos-'+ident);
       if(kursPos == undefined) {
-        //var pos = {};
-        //pos.satz = "";
-        //pos.folie = "";
-        //pos.file = "";
         updatePosition({});
       }
 
@@ -189,13 +186,12 @@ $(document).ready(function() {
 				for (var foliensatz in saetze) {
 
 					listItem = $('<li role="presentation" ident='+saetze[foliensatz].id+' file='+saetze[foliensatz].file+'><a href="#"> '+ saetze[foliensatz].title +'</a></li>');
-          if (localPos != null && saetze[foliensatz].id == localPos.satz) {
+          if ((localPos != undefined && saetze[foliensatz].id == localPos.satz) || (localPos.satz == undefined && saetze.indexOf(foliensatz) == 0) ) {
             listItem.attr('class', 'active');
-            localPos.file = saetze[foliensatz].file;
-          }
+            updatePosition({satz: saetze[foliensatz].satz, file: saetze[foliensatz].file});
+          } 
 					$('#side-nav ul').append(listItem);
 				}
-        window.localStorage.setItem('pos-'+ident, JSON.stringify(localPos));
 			});
 
 
@@ -220,7 +216,7 @@ $(document).ready(function() {
     $(this).closest('ul').find('li[class=active]').toggleClass('active');
     $(this).attr('class', 'active');
 
-    var newPos = {satz: $(this).attr('ident'), file: $(this).attr('file')};
+    var newPos = {satz: $(this).attr('ident'), indexh: 0, indexv: 0, file: $(this).attr('file')};
     updatePosition(newPos);
 
   });

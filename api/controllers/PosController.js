@@ -37,13 +37,14 @@ module.exports = {
 		var user = req.param('user');
 		var kurs = req.param('kurs');
 		var satz = req.param('satz');
-		var folie = req.param('folie');
+		var indexh = req.param('indexh');
+		var indexv = req.param('indexv');
 		var file = req.param('file');
-		Pos.update({user: user, kurs: kurs}, {satz: satz, folie: folie, file: file}, function posUpdated(err, pos){
+		Pos.update({user: user, kurs: kurs}, {satz: satz, indexh: indexh, indexv: indexv, file: file}, function posUpdated(err, pos){
 			if(err || pos.length == 0) {
 				var posObj = {
 					user: user, kurs: kurs, satz: satz, 
-					folie: folie, file: file
+					indexh: indexh, indexv: indexv, file: file
 				}
 				Pos.create(posObj, function posCreated(err, pos){
 					if(err) {

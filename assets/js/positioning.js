@@ -11,10 +11,14 @@ $(document).ready(function() {
 
 
   function updateSlidePos() {
-    var folie = $('#reveal-parent .slides section[aria-hidden!="true"][id]').attr('id');
-    var newPos = {folie: folie};
-    console.log(folie);
-    updatePosition(newPos);
+    //var folie = $('#reveal-parent .slides section[aria-hidden!="true"][id]').attr('id');
+    //var newPos = {folie: folie};
+
+    //fetch indexh and indexv
+    var indeces = Reveal.getIndices();
+
+    console.log(JSON.stringify(indeces));
+    updatePosition({indexh: indeces.h, indexv: indeces.v});
   }
 
 
@@ -24,7 +28,8 @@ $(document).ready(function() {
     if (oldPos == undefined) {
       oldPos = {};
       oldPos.satz='';
-      oldPos.folie='';
+      oldPos.indexh='0';
+      oldPos.indexv='0';
       oldPos.file='';
     }
 
@@ -36,10 +41,16 @@ $(document).ready(function() {
       newPos.satz = oldPos.satz;
     }
 
-    if(data.folie != undefined) {
-      newPos.folie = data.folie;
+    if(data.indexh != undefined) {
+      newPos.indexh = data.indexh;
     } else {
-      newPos.folie = oldPos.folie;
+      newPos.indexh = oldPos.indexh;
+    }
+
+    if(data.indexv != undefined) {
+      newPos.indexv = data.indexv;
+    } else {
+      newPos.indexv = oldPos.indexv;
     }
 
     if(data.file != undefined) {
