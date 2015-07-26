@@ -16,14 +16,11 @@ $(document).ready(function() {
 
     //fetch indexh and indexv
     var indeces = Reveal.getIndices();
-
-    console.log(JSON.stringify(indeces));
     updatePosition({indexh: indeces.h, indexv: indeces.v});
   }
 
 
   function initPosition(pos) {
-    console.log('initPosition');
     window.localStorage.setItem('k-pos-' + pos.kurs, JSON.stringify({
           satz: pos.satz
     }));
@@ -35,7 +32,6 @@ $(document).ready(function() {
   }
 
   function updatePosition(data) {
-    console.log('updatePos');
     var currentKurs = window.localStorage.getItem('activeKurs');
     var old_k_Pos = JSON.parse(window.localStorage.getItem('k-pos-'+currentKurs));
     if(old_k_Pos == null) {
