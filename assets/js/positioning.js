@@ -22,43 +22,62 @@ $(document).ready(function() {
   }
 
 
+  function initPosition(pos) {
+    console.log('initPosition');
+    window.localStorage.setItem('k-pos-' + pos.kurs, JSON.stringify({
+          satz: pos.satz
+    }));
+    window.localStorage.setItem('s-pos-' + pos.satz, JSON.stringify({
+          indexh: pos.indexh,
+          indexv: pos.indexv,
+          file: pos.file
+    }));
+  }
+
   function updatePosition(data) {
+    console.log('updatePos');
     var currentKurs = window.localStorage.getItem('activeKurs');
-    var oldPos = JSON.parse(window.localStorage.getItem('pos-'+currentKurs));
-    if (oldPos == undefined) {
-      oldPos = {};
-      oldPos.satz='';
-      oldPos.indexh='0';
-      oldPos.indexv='0';
-      oldPos.file='';
+    var old_k_Pos = JSON.parse(window.localStorage.getItem('k-pos-'+currentKurs));
+    if(old_k_Pos == null) {
+      old_k_Pos = {};
+      old_k_Pos.satz = '';
+    }
+    var satz = old_k_Pos.satz;
+    if(data.satz != undefined) {
+      kursPos = {satz: data.satz};
+      window.localStorage.setItem('k-pos-'+currentKurs, JSON.stringify(kursPos));
+      satz = data.satz;
     }
 
-    var newPos = {};
+    var new_s_pos = {};
+    var old_s_pos = JSON.parse(window.localStorage.getItem('s-pos-'+satz));
 
-    if(data.satz != undefined) {
-      newPos.satz = data.satz;
-    } else {
-      newPos.satz = oldPos.satz;
+    if(old_s_pos == null) {
+      old_s_pos = {};
+      old_s_pos.indexh = '0';
+      old_s_pos.indexv = '0';
+      old_s_pos.file = '';
     }
 
     if(data.indexh != undefined) {
-      newPos.indexh = data.indexh;
+      new_s_pos.indexh = data.indexh;
     } else {
-      newPos.indexh = oldPos.indexh;
+      new_s_pos.indexh = old_s_pos.indexh;
     }
 
     if(data.indexv != undefined) {
-      newPos.indexv = data.indexv;
+      new_s_pos.indexv = data.indexv;
     } else {
-      newPos.indexv = oldPos.indexv;
+      new_s_pos.indexv = old_s_pos.indexv;
     }
 
     if(data.file != undefined) {
-      newPos.file = data.file;
+      new_s_pos.file = data.file;
     } else {
-      newPos.file = oldPos.file;
+      new_s_pos.file = old_s_pos.file;
     }
+      
+    window.localStorage.setItem('s-pos-'+satz, JSON.stringify(new_s_pos));
 
-    window.localStorage.setItem('pos-'+currentKurs, JSON.stringify(newPos));
   }
 

@@ -45,9 +45,14 @@ $(document).ready(function() {
 
         /* Request for reveal slides */
         var currentKurs = window.localStorage.getItem('activeKurs');
-        var pos = JSON.parse(window.localStorage.getItem('pos-'+currentKurs));
+        console.log(currentKurs);
+        var satz = JSON.parse(window.localStorage.getItem('k-pos-'+currentKurs)).satz;
+console.log(JSON.stringify(satz));        
+        var sPos = JSON.parse(window.localStorage.getItem('s-pos-'+satz));
 
-        var file = pos.file;
+        console.log(JSON.stringify(sPos));
+
+        var file = sPos.file;
         if(file == "") {
           file = kursData.folien[0].file;
         }
@@ -149,11 +154,14 @@ $(document).ready(function() {
     $.post('/pos/getPosByUser', {id: userId}, function (data) {
       for (pos in data) {
         // init in localStorage
+        initPosition(data[pos]);
+        /*
         window.localStorage.setItem('pos-' + data[pos].kurs, JSON.stringify({
           satz: data[pos].satz,
           indexh: data[pos].indexh,
           indexv: data[pos].indexv
         }));
+        */
       }
     });
   }
@@ -167,14 +175,14 @@ $(document).ready(function() {
 			var params = {'kurs': ident};
 			window.localStorage.setItem("activeKurs", ident);
 
-      var kursPos = window.localStorage.getItem('pos-'+ident);
-      if(kursPos == undefined) {
-        updatePosition({});
-      }
 
-			//$.post('/session/sessionstore', params, function(r){  });
+      //var kursPos = window.localStorage.getItem('k-pos-'+ident);
+      //if(kursPos == undefined) {
+      //  updatePosition({});
+      //}
+			////$.post('/session/sessionstore', params, function(r){  });
+      var localPos = JSON.parse(window.localStorage.getItem('k-pos-'+ident));
 
-      var localPos = JSON.parse(window.localStorage.getItem('pos-'+ident));
 
 			$.post('/vorlesung/getKursData', {id: ident}, function(data) {
 				var saetze = data.folien;
@@ -184,11 +192,10 @@ $(document).ready(function() {
 
 				$('#side-nav ul').empty();
 				for (var foliensatz in saetze) {
-
 					listItem = $('<li role="presentation" ident='+saetze[foliensatz].id+' file='+saetze[foliensatz].file+'><a href="#"> '+ saetze[foliensatz].title +'</a></li>');
-          if ((localPos != undefined && saetze[foliensatz].id == localPos.satz) || (localPos.satz == undefined && saetze.indexOf(foliensatz) == 0) ) {
+          if ((localPos != null && saetze[foliensatz].id == localPos.satz) || ((localPos == null || localPos.satz == undefined) && saetze.indexOf(saetze[foliensatz]) == 0) ) {
             listItem.attr('class', 'active');
-            updatePosition({satz: saetze[foliensatz].satz, file: saetze[foliensatz].file});
+            updatePosition({satz: saetze[foliensatz].id, file: saetze[foliensatz].file});
           } 
 					$('#side-nav ul').append(listItem);
 				}
@@ -216,7 +223,7 @@ $(document).ready(function() {
     $(this).closest('ul').find('li[class=active]').toggleClass('active');
     $(this).attr('class', 'active');
 
-    var newPos = {satz: $(this).attr('ident'), indexh: 0, indexv: 0, file: $(this).attr('file')};
+    var newPos = {satz: $(this).attr('ident'), file: $(this).attr('file')};
     updatePosition(newPos);
 
   });

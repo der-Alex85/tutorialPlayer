@@ -17,18 +17,22 @@ $(document).ready(function() {
 function storePosition() {
 	Object.keys(localStorage).forEach(function(key){
 		var splittedKey = key.split('-');
-		if(splittedKey[0] == 'pos'){
+		if(splittedKey[0] == 'k' && splittedKey[1] == 'pos'){
 			var user = $('.view-container').attr('user');
-			var kurs = splittedKey[1];
-			var localPos = JSON.parse(localStorage.getItem(key));
+			var kurs = splittedKey[2];
+			var satz = JSON.parse(localStorage.getItem(key));
+
+
+			var foliePos = JSON.parse(localStorage.getItem('s-pos'+satz.satz));
+
 
 			var pos = {};
 			pos.user = user;
 			pos.kurs = kurs;
-			pos.satz = localPos.satz;
-			pos.indexh = localPos.indexh;
-			pos.indexv = localPos.indexv;
-			pos.file = localPos.file;
+			pos.satz = satz;
+			pos.indexh = foliePos.indexh;
+			pos.indexv = foliePos.indexv;
+			pos.file = foliePos.file;
 
 			$.post('/pos/updatePos', pos, function(p){
 				console.log("position ");
