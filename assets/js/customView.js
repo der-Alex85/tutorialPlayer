@@ -19,7 +19,7 @@ $(document).ready(function() {
     $('#fullscreen #fullscreen-content').toggleClass("myHidden");
 
 
-    if(windowName != globObj.windowName) {
+    //if(windowName != globObj.windowName) {
       $("#fullscreen #fullscreen-content").empty();
 
       var obj = {};
@@ -45,19 +45,16 @@ $(document).ready(function() {
 
         /* Request for reveal slides */
         var currentKurs = window.localStorage.getItem('activeKurs');
-        console.log(currentKurs);
+        
         var satz = JSON.parse(window.localStorage.getItem('k-pos-'+currentKurs)).satz;
-console.log(JSON.stringify(satz));        
-        var sPos = JSON.parse(window.localStorage.getItem('s-pos-'+satz));
 
-        console.log(JSON.stringify(sPos));
+        var s_pos = JSON.parse(window.localStorage.getItem('s-pos-'+satz));
 
-        var file = sPos.file;
+        var file = s_pos.file;
         if(file == "") {
           file = kursData.folien[0].file;
         }
         var data = {kurs: currentKurs, file: file};
-
         $.post("/foliensatz/getRevealSlides", data, function(steps){
           $( 'div.reveal>div.slides' ).append(steps);
           Reveal.initialize({
@@ -70,6 +67,8 @@ console.log(JSON.stringify(satz));
             // backgroundTransition: 'slide'
 
           });
+          
+          Reveal.slide(s_pos.indexh, s_pos.indexv);
 
         }, "html");
 
@@ -99,7 +98,7 @@ console.log(JSON.stringify(satz));
 
       globObj.windowName = windowName;
 
-    }
+    //}
   });
 
   $("#close-fullscreen").click(function(){
@@ -223,8 +222,10 @@ console.log(JSON.stringify(satz));
     $(this).closest('ul').find('li[class=active]').toggleClass('active');
     $(this).attr('class', 'active');
 
+    storePosition();
     var newPos = {satz: $(this).attr('ident'), file: $(this).attr('file')};
     updatePosition(newPos);
+
 
   });
 

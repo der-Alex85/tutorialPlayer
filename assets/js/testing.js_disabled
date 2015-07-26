@@ -15,15 +15,16 @@ $(document).ready(function() {
 
 
 function storePosition() {
-	var user = $('.view-container').attr('user');
 	Object.keys(localStorage).forEach(function(key){
 		var splittedKey = key.split('-');
 		if(splittedKey[0] == 'k' && splittedKey[1] == 'pos'){
+			var user = $('.view-container').attr('user');
 			var kurs = splittedKey[2];
+			var satz = JSON.parse(window.localStorage.getItem(key));
 
-			var satz = JSON.parse(window.localStorage.getItem(key)).satz;
+var test = satz.satz;
+			var s_pos = JSON.parse(window.localStorage.getItem('s-pos'+satz.satz));
 
-			var s_pos = JSON.parse(window.localStorage.getItem('s-pos-'+satz));
 
 			var pos = {};
 			pos.user = user;

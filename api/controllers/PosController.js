@@ -40,7 +40,9 @@ module.exports = {
 		var indexh = req.param('indexh');
 		var indexv = req.param('indexv');
 		var file = req.param('file');
-		Pos.update({user: user, kurs: kurs}, {satz: satz, indexh: indexh, indexv: indexv, file: file}, function posUpdated(err, pos){
+
+
+		Pos.update({user: user, kurs: kurs, satz: satz}, {indexh: indexh, indexv: indexv, file: file}, function posUpdated(err, pos){
 			if(err || pos.length == 0) {
 				var posObj = {
 					user: user, kurs: kurs, satz: satz, 
@@ -49,10 +51,10 @@ module.exports = {
 				Pos.create(posObj, function posCreated(err, pos){
 					if(err) {
 						console.log(JSON.stringify(err));
-					} 
+					} 		
 				});
 			}
-			
+
         //if(err) return res.redirect('/user/edit/'+req.param('id'));
         //res.redirect('/user/show/'+req.param('id'));
     });

@@ -89,8 +89,6 @@ module.exports = {
 
 	getKursData: function(req,res,next) {
 
-    console.log('gkd');
-
     var kursId = req.param('id');
     /*
     if(kursId == undefined) {           // ueberarbeiten.. api/policies/authenticated
@@ -100,9 +98,7 @@ module.exports = {
     }
     */
     //req.params.all()
-    console.log('kursid: '+kursId);
     Vorlesung.findOne({id: kursId}).populateAll().exec(function foundKurs(err, kurs) {
-      console.log("findone: "+JSON.stringify(kurs));
         if(err)   return next(err);
         if(!kurs) return next();
 

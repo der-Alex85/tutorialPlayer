@@ -7,8 +7,8 @@ module.exports = {
 		user:  { type: 'string', required: true },
 		kurs:  {type: 'string', required: true },
 		satz:  {type: 'string' },
-		idnexh: {type: 'string' },
-		idnexv: {type: 'string' },
+		indexh: {type: 'string' },
+		indexv: {type: 'string' },
 		file:  {type: 'string' }
 	}
 }
