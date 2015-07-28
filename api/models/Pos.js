@@ -9,6 +9,15 @@ module.exports = {
 		satz:  {type: 'string' },
 		indexh: {type: 'string' },
 		indexv: {type: 'string' },
-		file:  {type: 'string' }
+		file:  {type: 'string' },
+
+		notiz: {
+      model: 'Notiz'
+    },
+
+    fragen: {
+        collection: 'Frage',
+        via: 'pos'
+    }
 	}
 }

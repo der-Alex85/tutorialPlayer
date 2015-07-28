@@ -1,4 +1,5 @@
 /**
+/**
 * Frage.js
 *
 * @description :: TODO: You might write a short summary of how this model works and what it represents here.
@@ -8,9 +9,15 @@
 module.exports = {
 
   attributes: {
-      "text": {type: "string"}
-      //"ref": {type: "string"},
-      //"owner": {model: "ref"}
+      text: {type: "string"},
+      
+      pos: { 
+      	model: 'Pos'
+      },
+      antworten: {
+        collection: 'Antwort',
+        via: 'frage'
+    }
   }
 };
 

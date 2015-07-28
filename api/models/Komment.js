@@ -8,9 +8,7 @@
 module.exports = {
 
   attributes: {
-      "text": {type: "string"}
-      //"ref": {type: "string"},
-      //"owner": {model: "ref"}
+      text: {type: "string"}
   }
 };
 
