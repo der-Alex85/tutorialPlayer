@@ -12,7 +12,8 @@ module.exports = {
 		file:  {type: 'string' },
 
 		notiz: {
-      model: 'Notiz'
+      collection: 'Notiz',
+      via: 'pos'
     },
 
     fragen: {

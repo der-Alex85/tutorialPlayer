@@ -1,0 +1,14 @@
+{
+  "name": "jquery-indexeddb",
+  "homepage": "https://github.com/axemclion/jquery-indexeddb",
+  "version": "0.1.0",
+  "_release": "0.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.1.0",
+    "commit": "680216159ef6e956967cbb674eb7432d69aadd8f"
+  },
+  "_source": "git://github.com/axemclion/jquery-indexeddb.git",
+  "_target": "~0.1.0",
+  "_originalSource": "jquery-indexeddb"
+}

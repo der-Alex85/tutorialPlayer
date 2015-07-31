@@ -35,6 +35,12 @@ var jsFilesToInject = [
   'vendor/jquery/*.js',
   'vendor/jquery.validate/*.js',
   'vendor/sails.io.js/*.js',
+
+  //'vendor/angular/*.js',
+  //'vendor/angular-indexed-db/*.js',
+  'vendor/jquery-indexeddb/jquery.indexeddb.js',
+
+
   //'vendor/**/**/*.js',
 
   // Load sails.io before everything else

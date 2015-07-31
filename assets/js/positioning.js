@@ -75,5 +75,8 @@ $(document).ready(function() {
       
     window.localStorage.setItem('s-pos-'+satz, JSON.stringify(new_s_pos));
 
+    $('#meineNotiz input[name="indexh"]').attr("value", new_s_pos.indexh);
+    $('#meineNotiz input[name="indexv"]').attr("value", new_s_pos.indexv);
+
   }
 

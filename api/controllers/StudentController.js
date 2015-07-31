@@ -17,6 +17,7 @@ module.exports = {
       'vendor/bootstrap/bootstrap.js',
       'vendor/bootstrap-multiselect/bootstrap-multiselect.js',
       'vendor/sails.io.js/sails.io.js',
+      'vendor/jquery-indexeddb/jquery.indexeddb.js',
       '../js/dependencies/jquery/customValidate.js',
       '../js/dependencies/underscore.js',
       '../js/reveal/lib/js/classList.js',

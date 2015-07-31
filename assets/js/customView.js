@@ -1,5 +1,19 @@
 $(document).ready(function() {
 
+  //save Notiz
+  $('body').on('click', '#saveNotizButton', function(){
+    var data = {};
+    $('#meineNotiz input').each(function(index){
+      data[$(this).attr('name')] = $(this).attr('value');
+    });
+    data['text'] = $('#meineNotiz textarea').val();
+    $.post("/notiz/createNoteByPos", data, function(notiz){
+      var note = $('<div class="note"><div class="date">'+notiz.createdAt+'</div>'+notiz.text+'</div>')
+      $('#note-container').append(note);
+      $('#meineNotiz textarea').val('');
+    });
+  });
+  
 
   var globObj = {
     windowName: ""
@@ -7,6 +21,7 @@ $(document).ready(function() {
 
   var kursData = {};
 
+  var userId = $('.view-container').attr('user');
 
   $('.thumbnail').click(function(){
 
@@ -49,6 +64,11 @@ $(document).ready(function() {
         var satz = JSON.parse(window.localStorage.getItem('k-pos-'+currentKurs)).satz;
 
         var s_pos = JSON.parse(window.localStorage.getItem('s-pos-'+satz));
+
+        //init hidden fields
+        $('#meineNotiz input[name="user"]').attr("value", userId);
+        $('#meineNotiz input[name="kurs"]').attr("value", currentKurs);
+        $('#meineNotiz input[name="satz"]').attr("value", satz);
 
         var file = s_pos.file;
         if(file == "") {
@@ -148,12 +168,18 @@ $(document).ready(function() {
 
 
   // fetch user positions from db:
-  var userId = $('.view-container').attr('user');
   if(userId != undefined) {
-    $.post('/pos/getPosByUser', {id: userId}, function (data) {
-      for (pos in data) {
+    $.post('/pos/getPosByUser', {id: userId}, function(pos) {
+      for (p in pos) {
         // init in localStorage
-        initPosition(data[pos]);
+        initPosition(pos[p]);
+
+        $.post('/notiz/getNotesByPos', pos[p], function(notes){
+          for (n in notes) {
+            console.log(JSON.stringify(notes[n]));
+          }
+        });
+
         /*
         window.localStorage.setItem('pos-' + data[pos].kurs, JSON.stringify({
           satz: data[pos].satz,
@@ -163,6 +189,7 @@ $(document).ready(function() {
         */
       }
     });
+
   }
 
   var listItems = $('.kursliste .kursItem');
@@ -203,11 +230,13 @@ $(document).ready(function() {
 
       if(localPos != null) {
         // fetch Notizen
-        $.post('/notiz/getNotesByVorlSatz', {kurs: ident, satz: localPos.satz}, function (notizen) {
+        /*
+        $.post('/notiz/getNotesByPos', {kurs: ident, satz: localPos.satz}, function (notizen) {
           for (var notiz in notizen) {
             // todo here
           }
         });
+*/
       }
 
 			// change View

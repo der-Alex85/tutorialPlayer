@@ -11,7 +11,10 @@
     "jquery.validate": "~1.13.0",
     "bootstrap-multiselect": "~0.9.11",
     "bootstrap": "~3.3.2",
-    "handlebars": "~3.0.3"
+    "handlebars": "~3.0.3",
+    "angular-indexed-db": "~1.1.3",
+    "jquery.indexeddb": "~0.2.2",
+    "jquery-indexeddb": "~0.1.0"
   },
   "name": "player-demo",
   "version": "0.0.0",
