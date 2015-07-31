@@ -93,14 +93,12 @@ $(document).ready(function() {
     testNotiz.itemId = 200,
     testNotiz.abc = 4;
     testNotiz.name = 'Alex';
-    testNotiz.text = 'ich habe Geburtatag';
+    testNotiz.text = 'ABC';
     
     var testFrage = {};
     testFrage.itemId = 333,
     testFrage.name = 'qqq';
-    testFrage.xyz = 8;
-    testFrage.q = 'wer wie was?';
-    testFrage.a = 'dies das!';
+    
 
 
 
