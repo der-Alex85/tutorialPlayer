@@ -21,7 +21,11 @@ module.exports = {
 
     create: function(req,res,next){
         var fs = require("fs");
-        var params = req.allParams();
+        var params = {};
+        params.title = req.param('title');
+        params.beschreibung = req.param('beschreibung');
+        params.file = req.param('file');
+        params.vorlesung = req.param('vorlesung');
         var kursPath = "reveal-steps/"+params.vorlesung;
         var fileName = params.title.toLowerCase().replace(/( |\/)/g,"_")+".html";
         params['file'] = fileName;
@@ -104,7 +108,6 @@ module.exports = {
         var fs = require("fs");
         var kurs = req.param('kurs');
         var file = req.param('file');
-
 
         var path = "reveal-steps/"+kurs+"/"+file;
         fs.exists(path, function(exists) {

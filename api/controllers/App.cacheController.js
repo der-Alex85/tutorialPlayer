@@ -31,7 +31,6 @@ module.exports = {
       'styles/importer.css',
       'styles/reveal-importer.css',
       'styles/reveal/theme/serif.css',
-      'sounds/notify.mp3',
       'jst.js',
       '\n',
       'NETWORK:\n',

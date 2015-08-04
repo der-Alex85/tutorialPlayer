@@ -11,7 +11,7 @@ module.exports = {
 		indexv: {type: 'string' },
 		file:  {type: 'string' },
 
-		notiz: {
+		notizen: {
       collection: 'Notiz',
       via: 'pos'
     },

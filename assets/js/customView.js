@@ -9,8 +9,9 @@ $(document).ready(function() {
     data['text'] = $('#meineNotiz textarea').val();
     $.post("/notiz/createNoteByPos", data, function(notiz){
       var note = $('<div class="note"><div class="date">'+notiz.createdAt+'</div>'+notiz.text+'</div>')
-      $('#note-container').append(note);
+      $('#notes').append(note);
       $('#meineNotiz textarea').val('');
+      addNotiz(notiz);
     });
   });
   
@@ -41,7 +42,6 @@ $(document).ready(function() {
       var params = {'kurs': ''};
 
       if (windowName == "a") {
-
         $('body').append($('<script id="step-template" type="x-handlebars-template"><div id="{{id}}" class="{{class}}"{{#step data}}{{uri}}{{/step}}>{{{file}}}</div></script>'));
 
         $( '#fullscreen-content' ).append(
@@ -69,6 +69,7 @@ $(document).ready(function() {
         $('#meineNotiz input[name="user"]').attr("value", userId);
         $('#meineNotiz input[name="kurs"]').attr("value", currentKurs);
         $('#meineNotiz input[name="satz"]').attr("value", satz);
+        $('#meineNotiz input[name="file"]').attr("value", s_pos.file);
 
         var file = s_pos.file;
         if(file == "") {
@@ -87,7 +88,7 @@ $(document).ready(function() {
             // backgroundTransition: 'slide'
 
           });
-          
+
           Reveal.slide(s_pos.indexh, s_pos.indexv);
 
         }, "html");
@@ -174,9 +175,9 @@ $(document).ready(function() {
         // init in localStorage
         initPosition(pos[p]);
 
-        $.post('/notiz/getNotesByPos', pos[p], function(notes){
+        $.post('/notiz/getNotesByUser', {id: userId}, function(notes){
           for (n in notes) {
-            console.log(JSON.stringify(notes[n]));
+            addNotiz(notes[n]);
           }
         });
 

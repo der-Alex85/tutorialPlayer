@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-
+  document.addEventListener( 'ready', updateSlidePosDelayed, false );
   document.addEventListener( 'slidechanged', updateSlidePosDelayed, false );
 
 });
@@ -15,9 +15,28 @@ $(document).ready(function() {
     //var newPos = {folie: folie};
 
     //fetch indexh and indexv
+
+console.log('in update slide pos');
+
     var indeces = Reveal.getIndices();
     updatePosition({indexh: indeces.h, indexv: indeces.v});
+
+    var currentKurs = window.localStorage.getItem('activeKurs');
+    var k_Pos = JSON.parse(window.localStorage.getItem('k-pos-'+currentKurs));
+    initNotesFromTable( k_Pos.satz, indeces.h, indeces.v);
   }
+
+/*
+  function initNotizen(satz, h, v){
+    $('#notes').empty();
+    var notes = findEntryinTable(satz, h, v);
+    for(var n in notes){
+      console.log('N: '+notes[n]);
+      var note = $('<div class="note"><div class="date">'+notiz[n].createdAt+'</div>'+notiz[n].text+'</div>')
+      $('#notes').append(note);
+    }
+  }
+  */
 
 
   function initPosition(pos) {
