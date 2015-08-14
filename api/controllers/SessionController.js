@@ -24,11 +24,20 @@ module.exports = {
   },
 
 
+  //fetch everything for given student
   fetchAllData: function(req,res,next) {
-  	var userId = req.param('userId');
-  	User.findOne(userId).populate('student').exec(function found(err,user){
-  		
-  	});
+  	var studId = req.param('studId');
+  	var data = {};
+
+  	Student.findOne(studId).populate('user').populate('vorlesungen').exec(function(err, student){
+        if(err || student == undefined){
+          console.log("Student: "+studId+" nicht gefunden");
+          return next();
+        }
+
+        return res.json(student);
+
+      });
 
 
   },

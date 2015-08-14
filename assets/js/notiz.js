@@ -63,6 +63,12 @@ $(document).ready(function() {
     $.indexedDB("TutorialPlayer", {
         "schema": {
             "1": function(versionTransaction){
+                var notiz = versionTransaction.createObjectStore("Student", {                    
+                    "keyPath": "id"
+                });
+                //notiz.createIndex(['pos.satz','pos.indexh','pos.indexv'], 'posIndex');
+            },
+            "2": function(versionTransaction){
                 var notiz = versionTransaction.createObjectStore("Notiz", {                    
                     "keyPath": "id"
                 });
@@ -71,7 +77,7 @@ $(document).ready(function() {
                 // notiz.createIndex("pos.indexv");
             },
             // This was added in the next version of the site
-            "2": function(versionTransaction){
+            "3": function(versionTransaction){
                 var frage = versionTransaction.createObjectStore("Frage", {
                     "keyPath": "id"
                     //"autoIncrement": true
@@ -79,7 +85,7 @@ $(document).ready(function() {
                 frage.createIndex(['pos.satz','pos.indexh','pos.indexv'], 'posIndex');
                 //frage.createIndex("name");
             },
-            "3": function(versionTransaction){
+            "4": function(versionTransaction){
                 var antwort = versionTransaction.createObjectStore("Antwort", {
                     "keyPath": "id"
                     //"autoIncrement": true

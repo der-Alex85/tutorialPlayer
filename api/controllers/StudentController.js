@@ -154,7 +154,7 @@ module.exports = {
 
 
 
-  kursliste: function(req,res, next){
+  kursliste_1: function(req,res, next){
 
     var studId = req.session.User.student;
 
@@ -169,6 +169,17 @@ module.exports = {
           studentId: studId
         });
       });
+    } else {
+      res.redirect("/");
+    }
+  },
+
+  kursliste: function(req,res, next){
+
+    var studId = req.session.User.student;
+
+    if(req.session.authenticated) {
+      return res.view({studId = studId});
     } else {
       res.redirect("/");
     }
