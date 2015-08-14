@@ -38,6 +38,7 @@
           <input id="saveNotizButton" type="button" value="Speichern" class="btn btn-success"/>
         </form>
       </div>
+    </div>
   </div>
 </div>
 
@@ -48,7 +49,9 @@
   <div class="panel-body">
 
     <div id="fragen-container">
-      <div class="frage-antwort">
+
+
+      <!--div class="frage-antwort">
         <div class="frage">
           <div class="date">Jun 10th, 2015</div>
           Ist das so?
@@ -63,18 +66,34 @@
             Das stimmt!
           </div>
         </div>
+
         <div class="meineAntwort">
           <form action="" method="POST">
+            <input type="hidden" name="user" value="">
+            <input type="hidden" name="kurs" value="">
+            <input type="hidden" name="satz" value="">
+            <input type="hidden" name="indexh" value="">
+            <input type="hidden" name="indexv" value="">
+            <input type="hidden" name="file" value="">
             <textarea placeholder="Geben Sie Ihre Antwort ein" style="width: 100%;" rows="2" name="antwortText"></textarea>
-            <input type="submit" value="Speichern" class="btn btn-success"/>
+            <input id="saveAntwortButton" type="button" value="Speichern" class="btn btn-success"/>
           </form>
         </div>
-      </div>
+
+      </div-->
+
+
     </div>
-    <div class="meineFrage">
-      <form action="" method="POST">
-        <textarea placeholder="Geben Sie Ihre Frage ein" style="width: 100%;" rows="5" name="frageText"></textarea>
-        <input type="submit" value="Speichern" class="btn btn-success"/>
+    <div id="meineFrage">
+      <form action="#" method="POST">
+          <input type="hidden" name="user" value="">
+          <input type="hidden" name="kurs" value="">
+          <input type="hidden" name="satz" value="">
+          <input type="hidden" name="indexh" value="">
+          <input type="hidden" name="indexv" value="">
+          <input type="hidden" name="file" value="">
+          <textarea placeholder="Geben Sie Ihre Frage ein" style="width: 100%;" rows="5" name="frageText"></textarea>
+          <input id="saveFrageButton" type="button" value="Speichern" class="btn btn-success"/>
       </form>
     </div>
   </div>

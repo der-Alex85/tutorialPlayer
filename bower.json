@@ -10,9 +10,10 @@
     "sails.io.js": "~0.11.5",
     "jquery.validate": "~1.13.0",
     "bootstrap-multiselect": "~0.9.11",
-    "bootstrap": "~3.3.2",
+    "bootstrap": "~3.3.5",
     "handlebars": "~3.0.3",
-    "jquery-indexeddb": "~0.1.0"
+    "jquery-indexeddb": "~0.1.0",
+    "js-git": "~0.7.7"
   },
   "name": "player-demo",
   "version": "0.0.0",

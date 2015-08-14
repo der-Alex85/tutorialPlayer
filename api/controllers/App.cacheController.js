@@ -5,11 +5,17 @@
 
 module.exports = {
 
-  index: function(req,res) {
+  indexx: function(req,res) {
 
     var c = require('appcache-node');
     // generate a cache file
     var cf = c.newCache([
+      'vendor/bootstrap-multiselect/bootstrap-multiselect.css',
+      'styles/bootstrap.css',
+      'styles/importer.css',
+      'styles/reveal-importer.css',
+      'styles/reveal/theme/serif.css',
+
       'vendor/jquery/jquery.js',
       'vendor/jquery.validate/jquery.validate.js',
       'vendor/handlebars/handlebars.js',
@@ -24,14 +30,13 @@ module.exports = {
       'js/reveal/reveal.js',
       'js/customView.js',
       'js/positioning.js',
-      'js/notizenFragen.js',
+      'js/notiz.js',
       'js/app.js',
-      'vendor/bootstrap-multiselect/bootstrap-multiselect.css',
-      'styles/bootstrap.css',
-      'styles/importer.css',
-      'styles/reveal-importer.css',
-      'styles/reveal/theme/serif.css',
-      'jst.js',
+      
+
+      // 'video/videoA.mp4',
+      // 'video/videoB.mp4',
+
       '\n',
       'NETWORK:\n',
       '*'

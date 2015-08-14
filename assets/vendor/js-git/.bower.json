@@ -1,0 +1,14 @@
+{
+  "name": "js-git",
+  "homepage": "https://github.com/creationix/js-git",
+  "version": "0.7.7",
+  "_release": "0.7.7",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.7.7",
+    "commit": "4ca86be0bf3a5e57f53c44491838955d3201a8ff"
+  },
+  "_source": "git://github.com/creationix/js-git.git",
+  "_target": "~0.7.7",
+  "_originalSource": "js-git"
+}

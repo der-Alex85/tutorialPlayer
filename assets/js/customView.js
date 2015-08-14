@@ -1,19 +1,5 @@
 $(document).ready(function() {
 
-  //save Notiz
-  $('body').on('click', '#saveNotizButton', function(){
-    var data = {};
-    $('#meineNotiz input').each(function(index){
-      data[$(this).attr('name')] = $(this).attr('value');
-    });
-    data['text'] = $('#meineNotiz textarea').val();
-    $.post("/notiz/createNoteByPos", data, function(notiz){
-      var note = $('<div class="note"><div class="date">'+notiz.createdAt+'</div>'+notiz.text+'</div>')
-      $('#notes').append(note);
-      $('#meineNotiz textarea').val('');
-      addNotiz(notiz);
-    });
-  });
   
 
   var globObj = {
@@ -45,7 +31,7 @@ $(document).ready(function() {
         $('body').append($('<script id="step-template" type="x-handlebars-template"><div id="{{id}}" class="{{class}}"{{#step data}}{{uri}}{{/step}}>{{{file}}}</div></script>'));
 
         $( '#fullscreen-content' ).append(
-          JST['assets/templates/folienTemplate.ejs']( kursData )
+          JST['assets/templates/folienTemplate.ejs']( {} )
         );
 
 
@@ -71,13 +57,22 @@ $(document).ready(function() {
         $('#meineNotiz input[name="satz"]').attr("value", satz);
         $('#meineNotiz input[name="file"]').attr("value", s_pos.file);
 
+        $('#meineFrage input[name="user"]').attr("value", userId);
+        $('#meineFrage input[name="kurs"]').attr("value", currentKurs);
+        $('#meineFrage input[name="satz"]').attr("value", satz);
+        $('#meineFrage input[name="file"]').attr("value", s_pos.file);
+
+        
+
         var file = s_pos.file;
         if(file == "") {
           file = kursData.folien[0].file;
         }
+        
         var data = {kurs: currentKurs, file: file};
         $.post("/foliensatz/getRevealSlides", data, function(steps){
           $( 'div.reveal>div.slides' ).append(steps);
+          
           Reveal.initialize({
             center: true,
             // rtl: true,
@@ -155,7 +150,8 @@ $(document).ready(function() {
       if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
         // Browser downloaded a new app cache.
         // Swap it in and reload the page to get the new hotness.
-        window.applicationCache.swapCache();
+        console.log('cache updateready');
+        //window.applicationCache.swapCache();
         if (confirm('A new version of this site is available. Load it?')) {
           window.location.reload();
         }
@@ -175,6 +171,7 @@ $(document).ready(function() {
         // init in localStorage
         initPosition(pos[p]);
 
+        // fetch notes
         $.post('/notiz/getNotesByUser', {id: userId}, function(notes){
           for (n in notes) {
             addNotiz(notes[n]);
@@ -191,14 +188,32 @@ $(document).ready(function() {
       }
     });
 
+    $.post('/vorlesung/getKursByUser', {id: userId}, function(kurse) {
+      for (k in kurse) {
+        // fetch questions
+        $.post('/frage/getFrageByKurs', {id: kurse[k]}, function(fragen){
+          for (f in fragen) {
+            addFrage(fragen[f]);
+
+            $.post('/antwort/getAntwortByFrage', {frageId: fragen[f].id}, function(antworten){
+              for (a in antworten) {
+                addAntwort(antworten[a]);
+              }
+            });
+
+          }
+        });
+      }
+
+    });
   }
 
   var listItems = $('.kursliste .kursItem');
 	$.each(listItems, function(index, value) {
     var ident = $(this).attr('ident');
 
-		$(value).click(function(){
-
+		$(value).click(function(e){
+      e.preventDefault();
 			var params = {'kurs': ident};
 			window.localStorage.setItem("activeKurs", ident);
 
@@ -252,11 +267,11 @@ $(document).ready(function() {
     $(this).closest('ul').find('li[class=active]').toggleClass('active');
     $(this).attr('class', 'active');
 
+    //store position from previous satz in db
+    
     storePosition();
     var newPos = {satz: $(this).attr('ident'), file: $(this).attr('file')};
     updatePosition(newPos);
-
-
   });
 
 
@@ -396,18 +411,14 @@ $(document).ready(function() {
     var notinLecture = studentList.notinLecture;
     var inGroup = $('<optgroup id="inLecture" label="Teilnehmer"></optgroup>');
     $('#studentsModal select').append(inGroup);
-    console.log("in");
     for(var stud in inLecture) {
-      console.log(inLecture[stud]);
       var option = $('<option selected ident='+inLecture[stud].id+'>'+inLecture[stud].vorname +' '+ inLecture[stud].name+' ('+inLecture[stud].matrikel+')</option>');
       $('#studentsModal select optgroup#inLecture').append(option);
     }
 
     var notinGroup = $('<optgroup id="notinLecture" label="Studenten"></optgroup>');
     $('#studentsModal select').append(notinGroup);
-    console.log("out");
     for(var stud in notinLecture) {
-      console.log(notinLecture[stud]);
       var option = $('<option ident='+notinLecture[stud].id+'>'+notinLecture[stud].vorname +' '+ notinLecture[stud].name+' ('+notinLecture[stud].matrikel+')</option>');
       $('#studentsModal select optgroup#notinLecture').append(option);
     }

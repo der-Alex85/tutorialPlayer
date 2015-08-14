@@ -28,7 +28,6 @@ module.exports = {
 
     Pos.find({user: userId}).exec(function(err, pos){
     	if(err) { console.log("err: "+err);}
-    	console.log(JSON.stringify(pos));
     	return res.json(pos);
     });
 	},
@@ -41,7 +40,6 @@ module.exports = {
 		var indexv = req.param('indexv');
 		var file = req.param('file');
 
-
 		Pos.update({user: user, kurs: kurs, satz: satz}, {indexh: indexh, indexv: indexv, file: file}, function posUpdated(err, pos){
 			if(err || pos.length == 0) {
 				var posObj = {
@@ -51,10 +49,13 @@ module.exports = {
 				Pos.create(posObj, function posCreated(err, pos){
 					if(err) {
 						console.log(JSON.stringify(err));
+						return res.json(err);
 					} 		
+					return res.json(pos);
 				});
+			} else {
+				return res.json(pos);
 			}
-
         //if(err) return res.redirect('/user/edit/'+req.param('id'));
         //res.redirect('/user/show/'+req.param('id'));
     });

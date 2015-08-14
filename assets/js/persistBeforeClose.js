@@ -18,7 +18,7 @@ function storePosition() {
 	var user = $('.view-container').attr('user');
 	Object.keys(localStorage).forEach(function(key){
 		var splittedKey = key.split('-');
-		if(splittedKey[0] == 'k' && splittedKey[1] == 'pos'){
+		if(splittedKey.length > 2 && splittedKey[0] == 'k' && splittedKey[1] == 'pos'){
 			var kurs = splittedKey[2];
 
 			var satz = JSON.parse(window.localStorage.getItem(key)).satz;
@@ -34,7 +34,8 @@ function storePosition() {
 			pos.file = s_pos.file;
 
 			$.post('/pos/updatePos', pos, function(p){
-				console.log("position ");
+				console.log("position: "+JSON.stringify(p));
+				return;
 			});
 		}
 	});

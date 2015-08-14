@@ -84,7 +84,7 @@ module.exports = {
     },
 
     getStepList: function(req, res, next){
-        var fs = require("fs");
+        var fs = sails.fs;
         var fileName = "steps/list.json";
         fs.exists(fileName, function(exists) {
             if (exists) {
@@ -105,15 +105,23 @@ module.exports = {
 
     // ToDo: pfad und namen parmetrisieren
     getRevealSlides: function(req, res, next){
-        var fs = require("fs");
+        var fs = sails.fs;
         var kurs = req.param('kurs');
         var file = req.param('file');
 
         var path = "reveal-steps/"+kurs+"/"+file;
+        /*
         fs.exists(path, function(exists) {
+            console.log(1);
             if (exists) {
+                console.log(2);
+                */
+
                 fs.stat(path, function(error, stats) {
                     fs.open(path, "r", function(error, fd) {
+                        if(error) {
+                            return res.send({});
+                        }
                         var buffer = new Buffer(stats.size);
 
                         fs.read(fd, buffer, 0, buffer.length, null, function(error, bytesRead, buffer) {
@@ -123,8 +131,11 @@ module.exports = {
                         });
                     });
                 });
+
+                /*
             }
         });
+*/
     }
 
 };

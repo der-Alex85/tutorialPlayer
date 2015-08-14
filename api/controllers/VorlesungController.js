@@ -6,6 +6,21 @@
  */
 
 module.exports = {
+
+  getKursByUser: function(req, res, next){
+    var userId = req.param('id');
+    Vorlesung.find().populate('teilnehmer', {id: userId}).exec(function found(err,kurse){
+      if(err || kurse.length == 0) {
+        return next();
+      }
+      var result = [];
+      for(var k in kurse) {
+        result.push(kurse[k].id);
+      }
+      return res.json(result);
+    });
+  },
+
   addStudent: function(req,res,next){
     console.log('add: ');
     var kurs = req.param('data').kurs;
@@ -74,7 +89,7 @@ module.exports = {
         });
       }
     } else if (req.session.User.isadmin) {
-      Vorlesung.find().populateAll().exec(function foundKurs(err,kurse){
+      Vorlesung.find().populate('kursleiter').exec(function foundKurs(err,kurse){
         if(err) {
           return res.send(err,500);
         }
@@ -132,7 +147,6 @@ module.exports = {
 
   create: function(req,res,next){
 
-    console.log('vorl create: '+req.params.all());
   	var kursObj = {
   		titel: req.param('titel'),
   		beschreibung: req.param('beschreibung'),

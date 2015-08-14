@@ -23,5 +23,9 @@ module.exports.bootstrap = function(cb) {
 	  }
 	    cb();
 	  }
-	)
+	);
+
+
+  sails.fs = require('fs');
+
 };

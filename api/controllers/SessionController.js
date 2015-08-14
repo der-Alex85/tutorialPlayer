@@ -23,6 +23,17 @@ module.exports = {
     });
   },
 
+
+  fetchAllData: function(req,res,next) {
+  	var userId = req.param('userId');
+  	User.findOne(userId).populate('student').exec(function found(err,user){
+  		
+  	});
+
+
+  },
+
+
 	new: function(req,res) {
 
 

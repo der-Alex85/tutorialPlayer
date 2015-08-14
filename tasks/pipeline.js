@@ -59,7 +59,12 @@ var jsFilesToInject = [
 
   // All of the rest of your client-side js files
   // will be injected here in no particular order.
-  'js/*.js'
+  'js/positioning.js',
+  'js/notiz.js',
+  'js/persistBeforeClose.js',
+  //'js/app.js'
+  'js/customView.js',
+  'js/jsgit.js'
 ];
 
 

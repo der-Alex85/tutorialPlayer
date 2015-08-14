@@ -1,0 +1,11 @@
+CACHE MANIFEST
+
+CACHE:
+../video/videoA.mp4
+../video/videoB.mp4
+
+NETWORK:
+*
+
+FALLBACK:
+

@@ -8,13 +8,14 @@
 module.exports = {
 
   // getNotesByUser: function(req,res,next) {
-  //   var user = req.param('user');
+  // //   var user = req.param('user');
+  // var userId = req.param('id');
 
-  //   Pos.find({user: user}).exec(function posFound(err,pos){
+  //   Pos.find({user: userId}).exec(function posFound(err,pos){
   //     if(err) {
   //       next();
   //     }
-  //     console.log(JSON.stringify(pos));
+  //     console.log('p: '+JSON.stringify(pos));
   //     // TODO: return zu früh!!!
   //     var res = [];
   //     for (var p in pos){
@@ -28,10 +29,12 @@ module.exports = {
 
   //   });
   // },
+
   getNotesByUser: function(req,res,next) {
     var userId = req.param('id');
     Notiz.find().populate('pos', {user: userId}).exec(function noteFound(err, notizen){
       if(err) {next();}
+
       return res.json(notizen);
     });
   },

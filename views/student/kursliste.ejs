@@ -1,8 +1,8 @@
 <div class="view-container" user=<%= req.session.User.id %> student=<%=req.session.User.student%> >
 
 	<div class="view list-view">
-    <h1/>
-    </h1>
+    <!--h1>
+    </h1-->
 		<ul class="kursliste nav nav-stacked">
 			<% _.each(kurse, function(kurs) { %>
 				<li class="kursItem" ident="<%= kurs.id %>" role="presentation">
@@ -16,7 +16,7 @@
 		</ul>
 	</div>
 
-	<div class="view details-view" ng-app="myModuleName" ng-controller="myControllerName">
+	<div class="view details-view">
 
 
 		<nav id="side-nav" class="navbar navbar-default" role="navigation">

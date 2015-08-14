@@ -1,6 +1,5 @@
 $(document).ready(function() {
-
-  document.addEventListener( 'ready', updateSlidePosDelayed, false );
+  //document.addEventListener( 'ready', updateSlidePosDelayed, false );
   document.addEventListener( 'slidechanged', updateSlidePosDelayed, false );
 
 });
@@ -13,17 +12,15 @@ $(document).ready(function() {
   function updateSlidePos() {
     //var folie = $('#reveal-parent .slides section[aria-hidden!="true"][id]').attr('id');
     //var newPos = {folie: folie};
-
+    
     //fetch indexh and indexv
-
-console.log('in update slide pos');
-
     var indeces = Reveal.getIndices();
     updatePosition({indexh: indeces.h, indexv: indeces.v});
 
     var currentKurs = window.localStorage.getItem('activeKurs');
     var k_Pos = JSON.parse(window.localStorage.getItem('k-pos-'+currentKurs));
-    initNotesFromTable( k_Pos.satz, indeces.h, indeces.v);
+    initNotizenFromTable( k_Pos.satz, indeces.h, indeces.v);
+    initFragenFromTable( k_Pos.satz, indeces.h, indeces.v);
   }
 
 /*
@@ -40,9 +37,11 @@ console.log('in update slide pos');
 
 
   function initPosition(pos) {
-    window.localStorage.setItem('k-pos-' + pos.kurs, JSON.stringify({
+    if(window.localStorage.getItem('k-pos-' + pos.kurs) == undefined || window.localStorage.getItem('k-pos-' + pos.kurs).length == 0) {
+      window.localStorage.setItem('k-pos-' + pos.kurs, JSON.stringify({
           satz: pos.satz
-    }));
+      }));
+    }
     window.localStorage.setItem('s-pos-' + pos.satz, JSON.stringify({
           indexh: pos.indexh,
           indexv: pos.indexv,
@@ -96,6 +95,9 @@ console.log('in update slide pos');
 
     $('#meineNotiz input[name="indexh"]').attr("value", new_s_pos.indexh);
     $('#meineNotiz input[name="indexv"]').attr("value", new_s_pos.indexv);
+
+    $('#meineFrage input[name="indexh"]').attr("value", new_s_pos.indexh);    
+    $('#meineFrage input[name="indexv"]').attr("value", new_s_pos.indexv);
 
   }
 
