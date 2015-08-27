@@ -20,7 +20,7 @@ log('app js client');
 
 
   io.socket.on('user', function messageReceived(message) {
-console.log(message.verb);
+    console.log(message.verb);
     switch (message.verb) {
         case 'created': log('created!!'); break;
         case 'destroyed': log('destroyed!!'); break;
@@ -28,20 +28,23 @@ console.log(message.verb);
     }
   });
 
+  io.socket.on('foliensatz', function messageReceived(message) {
+    switch (message.verb) {
+        case 'created': alert('Foliensatz created!!'); break;
+        case 'destroyed': alert('Foliensatz destroyed!!'); break;
+        default: return;
+    }
+  });
 
 
 
   socket.on('connect', function socketConnected() {
-
     // Listen for Comet messages from Sails
     socket.on('user', cometmessageReceivedFromServer);
-
     console.log(socket);
-
 
     // Subscribe to the user model classroom and instance room
     //socket.get('/user/subscribe');
-
 
     log(
         'Socket is now connected and globally accessible as `socket`.\n' + 
@@ -49,14 +52,11 @@ console.log(message.verb);
         '`socket.get("/", function (response) ' +
         '{ console.log(response); })`'
     );
-
   });
-
 
   // Expose connected `socket` instance globally so that it's easy
   // to experiment with from the browser console while prototyping.
   window.socket = socket;
-
 
   // Simple log function to keep the example simple
   function log () {

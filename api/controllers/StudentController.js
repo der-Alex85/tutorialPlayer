@@ -20,8 +20,8 @@ module.exports = {
                 var data = buffer.toString("utf8", 0, buffer.length);
                 fs.close(fd);
                 res.header('Content-Type', 'text/cache-manifest');
-                res.writeHead(200, {'Content-Type': 'text/cache-manifest'});
-                return res.send(data);
+                //res.writeHead(200, {'Content-Type': 'text/cache-manifest'});
+                return res.send(data); 
             });
         });
     });
@@ -69,7 +69,7 @@ module.exports = {
     // in your request handler
     //if(r.url.match(/app\.cache$/)){
     res.writeHead(200, {'Content-Type': 'text/cache-manifest'});
-    return res.end(cf);
+    return res.send(cf);
     //}
   },
 
@@ -154,7 +154,7 @@ module.exports = {
 
 
 
-  kursliste_1: function(req,res, next){
+  kursliste: function(req,res, next){
 
     var studId = req.session.User.student;
 
@@ -164,22 +164,22 @@ module.exports = {
           console.log("Student: "+studId+" nicht gefunden");
           return res.redirect("/");
         }
-        res.view({
+        return res.view({
           kurse: student.vorlesungen,
-          studentId: studId
+          studId: studId
         });
       });
     } else {
-      res.redirect("/");
+      return res.redirect("/");
     }
   },
 
-  kursliste: function(req,res, next){
+  kursliste_2: function(req,res, next){
 
     var studId = req.session.User.student;
 
     if(req.session.authenticated) {
-      return res.view({studId = studId});
+      return res.view({studId: studId});    // ToDo here
     } else {
       res.redirect("/");
     }

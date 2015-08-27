@@ -30,8 +30,6 @@ module.exports = {
         var fileName = params.title.toLowerCase().replace(/( |\/)/g,"_")+".html";
         params['file'] = fileName;
 
-
-
         fs.exists(kursPath, function(exists) {
             if (!exists) {
                 fs.mkdir(kursPath, function(ok){});
@@ -46,6 +44,10 @@ module.exports = {
                         if (err) {
                             req.session.flash = { err: err };
                         }
+
+                        Foliensatz.publishCreate({id: satz.id, name: satz.title});
+
+
                     });
                     return res.redirect('/vorlesung');
                 });
@@ -69,18 +71,6 @@ module.exports = {
           }
         }
         return res.json(result);
-    },
-
-	createSample: function(req,res,next){
-		var sample = {
-            title: req.param('name'),
-            beschreibung: req.param('vorname'),
-            titel: req.param('titel'),
-            email: req.param('email'),
-
-            password: req.param('password'),
-            confirmation: req.param('confirmation')
-        };
     },
 
     getStepList: function(req, res, next){

@@ -63,10 +63,10 @@ $(document).ready(function() {
     $.indexedDB("TutorialPlayer", {
         "schema": {
             "1": function(versionTransaction){
-                var notiz = versionTransaction.createObjectStore("Student", {                    
+                var student = versionTransaction.createObjectStore("Student", {                    
                     "keyPath": "id"
                 });
-                //notiz.createIndex(['pos.satz','pos.indexh','pos.indexv'], 'posIndex');
+                student.createIndex('user.email', 'mailIndex');
             },
             "2": function(versionTransaction){
                 var notiz = versionTransaction.createObjectStore("Notiz", {                    

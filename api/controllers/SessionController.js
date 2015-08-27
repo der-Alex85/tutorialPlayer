@@ -112,20 +112,16 @@ module.exports = {
 					req.session.flash = {
 						err: usernamePasswordMissmatchError
 					}
-
 					return;
 				}
 
 				req.session.authenticated = true;
 				req.session.User = user;
-
+				req.session.mail = user.email;
 				req.session.position = [];
-
         user.isonline = true;
-
         user.save(function(err,user) {
      			if(err) return next(err);
-
 
 				  User.publishUpdate(user.id, {
         		loggedIn: true,
@@ -134,14 +130,11 @@ module.exports = {
         		action: ' has logged in.'
           });
 
-
           if(req.session.User.isprof) {
             res.redirect('/vorlesung');
-            //res.redirect('/prof/'+user.prof.id);
           } else {
             // overwrite blueprint in config/routes.js: 'get student/:id' 'StudentController.kursliste'
             res.redirect('/student/kursliste');
-            //res.redirect('/student/kursliste/'+user.student.id);
           }
             //res.redirect('/user/show/'+user.id);
         });
