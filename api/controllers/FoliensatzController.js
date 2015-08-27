@@ -8,6 +8,16 @@
 module.exports = {
 
 
+    subscribe: function(req, res, next) {
+        Foliensatz.find(function foundUsers(err,satz){
+            if(err) return next(err);
+            Foliensatz.watch(req.socket);
+            Foliensatz.subscribe(req, satz);
+            
+            res.send(200);
+        });
+    },
+
     destroy: function(req,res,next){
         var fs = require("fs");
         var path = "reveal-steps/"+req.param('kursId')+"/";
@@ -45,7 +55,10 @@ module.exports = {
                             req.session.flash = { err: err };
                         }
 
-                        Foliensatz.publishCreate({id: satz.id, name: satz.title});
+
+                        //try socket:
+                        //Foliensatz.publishCreate(satz);
+                        //Foliensatz.publishUpdate(satz.id, satz);
 
 
                     });

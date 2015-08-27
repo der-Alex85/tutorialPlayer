@@ -64,7 +64,8 @@ var jsFilesToInject = [
   'js/persistBeforeClose.js',
   //'js/app.js'
   'js/customView.js',
-  'js/jsgit.js'
+  //'js/socket.js'
+ // 'js/jsgit.js'
 ];
 
 

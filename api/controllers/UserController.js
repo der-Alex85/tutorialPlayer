@@ -171,6 +171,7 @@ subscribe: function(req, res, next) {
         if(err) return next(err);
         User.watch(req.socket);
         User.subscribe(req.socket, users);
+        
         res.send(200);
     });
 },

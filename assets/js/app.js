@@ -10,7 +10,7 @@
 
 (function (io) {
 
-log('app js client');
+console.log('app js client');
 
   // as soon as this file is loaded, connect automatically, 
   var socket = io.connect();
@@ -22,23 +22,37 @@ log('app js client');
   io.socket.on('user', function messageReceived(message) {
     console.log(message.verb);
     switch (message.verb) {
-        case 'created': log('created!!'); break;
-        case 'destroyed': log('destroyed!!'); break;
+        case 'created': console.log('created!!'); break;
+        case 'destroyed': console.log('destroyed!!'); break;
         default: return;
     }
   });
 
-  io.socket.on('foliensatz', function messageReceived(message) {
-    switch (message.verb) {
+  io.socket.on('foliensatz', function messageReceived(msg) {
+    console.log('io.socket.on foliensatz: '+JSON.stringify(msg));
+    switch (msg.verb) {
         case 'created': alert('Foliensatz created!!'); break;
         case 'destroyed': alert('Foliensatz destroyed!!'); break;
-        default: return;
+        default: alert('foliensatz default'); return;
     }
   });
 
 
 
   socket.on('connect', function socketConnected() {
+console.log('socket.on connect')
+
+    socket.get('/foliensatz/subscribe');
+    /*
+    socket.on('foliensatz', function(obj){
+      if (obj.verb == 'created') {
+         var data = obj.data;
+         console.log('User '+data.name+' has been created.');
+         alert('connect > foliensatz > created');
+      }
+    });*/
+
+
     // Listen for Comet messages from Sails
     socket.on('user', cometmessageReceivedFromServer);
     console.log(socket);
